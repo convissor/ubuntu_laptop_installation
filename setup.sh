@@ -247,7 +247,7 @@ adduser "$user"
 
 if [ -d /root/.ssh ] ; then
     cp -R /root/.ssh "/home/$user"
-    chown "$user":"$user" "/home/$user"
+    chown -R "$user":"$user" "/home/$user/.ssh"
     chmod 700 "/home/$user"
     chmod 600 "/home/$user"/*
 fi
