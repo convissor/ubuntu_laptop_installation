@@ -210,12 +210,15 @@ ln -s /usr/bin/ack-grep /usr/bin/ack
 
 # Have unattended-upgrades run automatically.
 file=/etc/apt/apt.conf.d/10periodic
+set +e
 grep -q "APT::Periodic::Unattended-Upgrade" "$file"
 if [ $? -eq 0 ] ; then
     # Something is in there. Make sure it's enabled.
+    set -e
     sed -E 's@^/*(\s*APT::Periodic::Unattended-Upgrade\s+)"[0-9]+"@\1"1"@g' -i "$file"
 else
     # Nothing is in there. Add it.
+    set -e
     echo 'APT::Periodic::Unattended-Upgrade "1";' >> "$file"
 fi
 
