@@ -207,7 +207,6 @@ apt-get -qq -y install \
     gimp gimp-help-en
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
-restart network-manager
 
 # Have unattended-upgrades run automatically.
 file=/etc/apt/apt.conf.d/10periodic
