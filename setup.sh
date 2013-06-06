@@ -28,6 +28,23 @@ function commit_if_needed() {
 }
 
 
+# SETUP ROOT SSH KEYS =====================================
+
+mkdir -m 700 /root/.ssh
+cd /root/.ssh
+ssh-keygen -t rsa -C root@localhost -f id_rsa-root
+cp id_rsa-root.pub authorized_keys
+
+cat >> config <<EOSSH
+ForwardAgent no
+Host localhost
+IdentityFile ~/.ssh/id_rsa-root
+EOSSH
+
+chmod 700 /root/.ssh
+chmod 600 /root/.ssh/*
+
+
 # TRACK ALL CONFIGURATION CHANGES =========================
 
 step="git"

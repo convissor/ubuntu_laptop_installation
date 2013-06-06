@@ -73,20 +73,8 @@ Then issue the following commands:
 
     sudo -i
 
-    mkdir -m 700 /root/.ssh
-    cd /root/.ssh
-    ssh-keygen -t rsa -C root@localhost -f id_rsa-root
-    cp id_rsa-root.pub authorized_keys
-
-    cat >> config <<EOSSH
-    ForwardAgent no
-    Host localhost
-    IdentityFile ~/.ssh/id_rsa-root
-    EOSSH
-
-    cp -R /media/<usb_partition>/ubuntu_laptop_installation .
-    cd install
-    chmod 700 *.sh
+    wget https://raw.github.com/convissor/ubuntu_laptop_installation/master/setup.sh
+    chmod 700 setup.sh
     ./setup.sh
 
 The last step of the setup script updates the kernel.  If that's needed,
