@@ -249,8 +249,8 @@ adduser "$user"
 if [ -d /root/.ssh ] ; then
     cp -R /root/.ssh "/home/$user"
     chown -R "$user":"$user" "/home/$user/.ssh"
-    chmod 700 "/home/$user"
-    chmod 600 "/home/$user"/*
+    chmod 700 "/home/$user/.ssh"
+    chmod 600 "/home/$user/.ssh"/*
 fi
 
 cd /etc && git add --all && commit_if_needed "$step"
