@@ -29,6 +29,25 @@ the contents of this GitHub repository onto it:
 * UNMOUNT USB DRIVE
 
 
+Disable UEFI
+============
+
+UEFI is a process by which the BIOS monitors boot records.  This can keep Ubuntu from
+booting.  To work around this problem, it's necessary to disable UEFI __before__
+installing the operating system.  Boot the computer and get into the BIOS setup
+mode.  As an example, this is how I did it and the various settings that need
+checking on a Lenovo E31 ThinkStation.
+
+* When booting, repeatedly hit F1 until the BIOS screen appears
+* Startup
+	* Boot Mode: Legacy
+	* Quick Boot: Disabled
+* Devices
+	* Configure SATA as: ACHI
+
+For more information, see https://help.ubuntu.com/community/UEFI
+
+
 Installation
 =============
 
