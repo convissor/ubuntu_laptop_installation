@@ -204,6 +204,7 @@ apt-get -qq -y install \
     antiword tofrodos ack-grep \
     sqlite3 sqlite3-doc \
     ntp myunity gparted lm-sensors htop screen \
+    gnome-session-fallback gnome-panel \
     gimp gimp-help-en
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
