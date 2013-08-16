@@ -199,8 +199,8 @@ apt-get -qq -y install \
     epdfview pdfedit okular okular-extra-backends poppler-utils \
     antiword tofrodos ack-grep \
     sqlite3 sqlite3-doc \
-    ntp myunity gparted lm-sensors htop screen \
-    gnome-session-fallback gnome-panel \
+    ntp traceroute gparted lm-sensors htop screen \
+    myunity gnome-session-fallback gnome-panel gnome-tweak-tool \
     gimp gimp-help-en
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
