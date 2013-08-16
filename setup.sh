@@ -185,13 +185,9 @@ echo "Pick 'Local only' from the list."
 echo -n "Press ENTER to continue..."
 read -e
 
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
-    | apt-key add -
-
 file=/etc/apt/sources.list
 sed -E "s/^# (deb.* partner)$/\1/g" -i "$file"
 echo "" >> "$file"
-echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> "$file"
 cd /etc && commit_if_needed "Allow 'partner' packages."
 apt-get update
 
