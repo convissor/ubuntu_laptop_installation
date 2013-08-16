@@ -219,6 +219,9 @@ else
     echo 'APT::Periodic::Unattended-Upgrade "1";' >> "$file"
 fi
 
+# Ditch the annoying new scroll bar format.
+echo "export LIBOVERLAY_SCROLLBAR=0" >> /etc/X11/Xsession.d/80overlayscrollbars
+
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
