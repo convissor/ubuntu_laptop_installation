@@ -223,6 +223,10 @@ else
     echo 'APT::Periodic::Unattended-Upgrade "1";' >> "$file"
 fi
 
+# Uncomment all origins so all upgrades get installed automatically.
+file=/etc/apt/apt.conf.d/50unattended-upgrades
+sed -E 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
+
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
