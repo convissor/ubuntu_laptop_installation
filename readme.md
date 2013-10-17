@@ -32,11 +32,11 @@ the contents of this GitHub repository onto it:
 Disable UEFI
 ============
 
-UEFI is a process by which the BIOS monitors boot records.  This can keep Ubuntu from
-booting.  To work around this problem, it's necessary to disable UEFI __before__
-installing the operating system.  Boot the computer and get into the BIOS setup
-mode.  As an example, this is how I did it and the various settings that need
-checking on a Lenovo E31 ThinkStation.
+UEFI is a process by which the BIOS monitors boot records.  This can keep
+Ubuntu from booting.  To work around this problem, it's necessary to disable
+UEFI __before__ installing the operating system.  Boot the computer and get
+into the BIOS setup mode.  As an example, this is how I did it and the various
+settings that need checking on a Lenovo E31 ThinkStation.
 
 * When booting, repeatedly hit F1 until the BIOS screen appears
 * Startup
@@ -71,8 +71,8 @@ This first account is an admin user with sudo privileges; it should be a
 separate account from the one you use on a day-to-day basis for regular work.
 This prevents disruptive commands from being inadvertently executed.
 
-When asked whether to encrypt the home directory, say no.  It's unnecessary because
-the whole drive is encrypted.
+When asked whether to encrypt the home directory, say no.  It's unnecessary
+because the whole drive is encrypted.
 
 Once the "Partition disks" screen comes up, pick: `Guided - use entire disk
 and set up ecrypted LVM`
