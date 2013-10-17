@@ -219,6 +219,10 @@ else
     echo 'APT::Periodic::Unattended-Upgrade "1";' >> "$file"
 fi
 
+# Uncomment all origins so all upgrades get installed automatically.
+file=/etc/apt/apt.conf.d/50unattended-upgrades
+sed -E 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
+
 # Ditch the annoying new scroll bar format.
 echo "export LIBOVERLAY_SCROLLBAR=0" >> /etc/X11/Xsession.d/80overlayscrollbars
 
