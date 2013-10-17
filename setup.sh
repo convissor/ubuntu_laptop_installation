@@ -14,8 +14,8 @@ fi
 function ask_to_proceed() {
     echo "> > > > >  $1 DONE"
 
-    # Uncomment the remaining lines if need to ask whether to proceed
-    # after each step.
+    # Uncomment the remaining lines if you want each step to ask you
+    # whether to proceed or not.
     #echo -n "Hit CTRL-C to stop or ENTER to continue... "
     #read -e
 }
