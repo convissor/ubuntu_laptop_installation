@@ -15,18 +15,7 @@ Prepare Installation Media
 
 * [Obtain the "alternate" installer](http://releases.ubuntu.com/12.04/)
 * Put a USB stick in your existing computer.
-* As user with sudo powers:  System | Administration | Startup Disk Creator
-* Either add a partition to that thumb drive or get another drive and put
-the contents of this GitHub repository onto it:
-
-        usb_partition=transit
-        cp -R ubuntu_laptop_installation /media/$usb_partition
-
-        # To bring over other existing configurations for SSH, Firefox, etc.
-        cp -R ~/.ssh /media/$usb_partition
-        cp -R ~/.mozilla/firefox/<profile>/ /media/$usb_partition
-
-* UNMOUNT USB DRIVE
+* As a user with sudo powers:  System | Administration | Startup Disk Creator
 
 
 Disable UEFI
