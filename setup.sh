@@ -27,6 +27,8 @@ function commit_if_needed() {
     fi
 }
 
+repo_dir="$(cd "$(dirname "$0")" && pwd)"
+
 
 # SETUP ROOT SSH KEYS =====================================
 
@@ -238,8 +240,17 @@ ask_to_proceed "$step"
 # USER INTERFACE TWEAKS ===================================
 
 step="user interface tweaks"
+
 # Ditch the annoying new scroll bar format.
 echo "export LIBOVERLAY_SCROLLBAR=0" >> /etc/X11/Xsession.d/80overlayscrollbars
+
+# Kill the "ready sound"
+cd /usr/share/glib-2.0/schemas
+git init
+git add --all
+git commit -am 'Initial settings'
+patch com.canonical.unity-greeter.gschema.xml "$repo_dir/ready-sound-off.diff"
+git commit -am 'Disable ready sound.'
 
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
