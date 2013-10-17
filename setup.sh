@@ -279,6 +279,13 @@ if [ -d /root/.ssh ] ; then
     chmod 600 "/home/$user/.ssh"/*
 fi
 
+# Have root and admin user email alerts go to the regular user.
+file=/etc/aliases
+admin_user=$(grep 1000 /etc/passwd | awk --field-separator ':' '{print $1}')
+echo "root: $user" >> "$file"
+echo "$admin_user: $user" >> "$file"
+newaliases
+
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
