@@ -5,7 +5,7 @@ Instructions and bash scripts for installing and configuring Ubuntu 12.04
 on a PC laptop.  Notable features:
 
 * Encrypts entire hard drive
-* Tracks all changes to `/etc` via git
+* Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
 * Installs common utilities
 * Sets up administrative access via `ssh root@localhost`
 
@@ -13,7 +13,7 @@ on a PC laptop.  Notable features:
 Prepare Installation Media
 ==========================
 
-* [Obtain the `alternate` installer](http://releases.ubuntu.com/12.04/)
+* [Obtain the "alternate" installer](http://releases.ubuntu.com/12.04/)
 * Put a USB stick in your existing computer.
 * As user with sudo powers:  System | Administration | Startup Disk Creator
 * Either add a partition to that thumb drive or get another drive and put
