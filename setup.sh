@@ -154,15 +154,6 @@ sed -E "s/^bantime\s+=.*/bantime = 86400/g" -i "$file"
 ask_to_proceed "$step"
 
 
-# LOGIN UI CLEANUP ========================================
-
-step="disable guest sessions"
-echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
-echo "allow-guest=false" >> /etc/lightdm/lightdm.conf
-cd /etc && git add --all && commit_if_needed "$step"
-ask_to_proceed "$step"
-
-
 # SSHD ====================================================
 
 step="sshd"
@@ -240,6 +231,12 @@ ask_to_proceed "$step"
 # USER INTERFACE TWEAKS ===================================
 
 step="user interface tweaks"
+
+# Don't give away user names to intruders.
+echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
+
+# Remove the guest session.
+echo "allow-guest=false" >> /etc/lightdm/lightdm.conf
 
 # Ditch the annoying new scroll bar format.
 echo "export LIBOVERLAY_SCROLLBAR=0" >> /etc/X11/Xsession.d/80overlayscrollbars
