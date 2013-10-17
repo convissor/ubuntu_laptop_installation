@@ -14,8 +14,9 @@ Prepare Installation Media
 ==========================
 
 * [Obtain the "alternate" installer](http://releases.ubuntu.com/12.04/)
-* Put a USB stick in your existing computer.
+* Put a USB stick in your existing computer
 * As a user with sudo powers:  System | Administration | Startup Disk Creator
+* Unmount the USB drive and remove it
 
 
 Disable UEFI
@@ -40,7 +41,8 @@ For more information, see https://help.ubuntu.com/community/UEFI
 Installation
 =============
 
-* Put USB drive in new computer
+* Take the USB drive from the "Prepare Installation Media" step, above,
+and put it in the new computer
 * Hit the power button to turn the machine on
 
 The following three steps are described for a Lenovo laptops in 2012.  If
@@ -58,10 +60,10 @@ When asked for a user name, DO __NOT__ use your company assigned user name.
 A regular, company provided user name account will be created later.
 This first account is an admin user with sudo privileges; it should be a
 separate account from the one you use on a day-to-day basis for regular work.
-This prevents disruptive commands from being inadvertently executed.
+This prevents destructive commands from being inadvertently executed.
 
 When asked whether to encrypt the home directory, say no.  It's unnecessary
-because the whole drive is encrypted.
+because the whole drive will be encrypted.
 
 Once the "Partition disks" screen comes up, pick: `Guided - use entire disk
 and set up ecrypted LVM`
@@ -70,8 +72,8 @@ and set up ecrypted LVM`
 Configuration
 =============
 
-Once Ubuntu is installed, it is time to configure the system for and
-install desirable utilities.
+Once Ubuntu is installed, it is time to configure the system and
+install additional programs.
 
 Fire up a terminal session.  Here are two possible ways:
 
@@ -88,9 +90,10 @@ Then issue the following commands:
     chmod 700 setup.sh
     ./setup.sh
 
-The last step of the setup script updates the kernel.  If that's needed,
-it'll automatically reboot the computer.  If for some reason the reboot
-isn't required, that's cool.  Just log out from the administrator account.
+The last step of the setup script updates the kernel, if necessary.  If that
+update is needed, the script will automatically reboot the computer.  But if a
+reboot isn't required; just log out of the administrator account and use
+the "regular user" account the setup script had you create.
 
 
 Wireless
