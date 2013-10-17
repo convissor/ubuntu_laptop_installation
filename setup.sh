@@ -175,9 +175,35 @@ service ssh reload
 ask_to_proceed "$step"
 
 
-# MISC ====================================================
+# AUTOMATIC UPGRADES ======================================
 
-step="misc tools"
+step="automatic upgrades"
+
+# Have unattended-upgrades run automatically.
+file=/etc/apt/apt.conf.d/10periodic
+set +e
+grep -q "APT::Periodic::Unattended-Upgrade" "$file"
+if [ $? -eq 0 ] ; then
+    # Something is in there. Make sure it's enabled.
+    set -e
+    sed -E 's@^/*(\s*APT::Periodic::Unattended-Upgrade\s+)"[0-9]+"@\1"1"@g' -i "$file"
+else
+    # Nothing is in there. Add it.
+    set -e
+    echo 'APT::Periodic::Unattended-Upgrade "1";' >> "$file"
+fi
+
+# Uncomment all origins so all upgrades get installed automatically.
+file=/etc/apt/apt.conf.d/50unattended-upgrades
+sed -E 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
+
+cd /etc && git add --all && commit_if_needed "$step"
+ask_to_proceed "$step"
+
+
+# DESIRED SOFTWARE ========================================
+
+step="desired software"
 
 echo ""
 echo "During the next step, you'll be asked to set up Postfix."
@@ -205,24 +231,13 @@ apt-get -qq -y install \
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
 
-# Have unattended-upgrades run automatically.
-file=/etc/apt/apt.conf.d/10periodic
-set +e
-grep -q "APT::Periodic::Unattended-Upgrade" "$file"
-if [ $? -eq 0 ] ; then
-    # Something is in there. Make sure it's enabled.
-    set -e
-    sed -E 's@^/*(\s*APT::Periodic::Unattended-Upgrade\s+)"[0-9]+"@\1"1"@g' -i "$file"
-else
-    # Nothing is in there. Add it.
-    set -e
-    echo 'APT::Periodic::Unattended-Upgrade "1";' >> "$file"
-fi
+cd /etc && git add --all && commit_if_needed "$step"
+ask_to_proceed "$step"
 
-# Uncomment all origins so all upgrades get installed automatically.
-file=/etc/apt/apt.conf.d/50unattended-upgrades
-sed -E 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
 
+# USER INTERFACE TWEAKS ===================================
+
+step="user interface tweaks"
 # Ditch the annoying new scroll bar format.
 echo "export LIBOVERLAY_SCROLLBAR=0" >> /etc/X11/Xsession.d/80overlayscrollbars
 
