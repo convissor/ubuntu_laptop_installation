@@ -246,7 +246,19 @@ cd /usr/share/glib-2.0/schemas
 git init
 git add --all
 git commit -am 'Initial settings'
-patch com.canonical.unity-greeter.gschema.xml "$repo_dir/ready-sound-off.diff"
+patch <<EOREADY
+--- /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.xml	2013-10-16 22:37:17.941475899 -0400
++++ /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.xml	2013-10-16 22:35:42.092155086 -0400
+@@ -79,7 +79,7 @@
+       <summary>Whether to enable the screen reader</summary>
+     </key>
+     <key name="play-ready-sound" type="b">
+-      <default>true</default>
++      <default>false</default>
+       <summary>Whether to play sound when greeter is ready</summary>
+     </key>
+     <key name="indicators" type="as">
+EOREADY
 git commit -am 'Disable ready sound.'
 
 cd /etc && git add --all && commit_if_needed "$step"
