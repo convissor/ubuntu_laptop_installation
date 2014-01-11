@@ -216,7 +216,7 @@ apt-get -qq -y install \
     flashplugin-installer qt4-qtconfig \
     vim exuberant-ctags \
     epdfview pdfedit okular okular-extra-backends poppler-utils \
-    antiword tofrodos ack-grep \
+    antiword tofrodos ack-grep gawk \
     sqlite3 sqlite3-doc \
     ntp traceroute gparted lm-sensors htop screen \
     myunity gnome-session-fallback gnome-panel gnome-tweak-tool \
