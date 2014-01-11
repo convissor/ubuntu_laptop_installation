@@ -206,8 +206,14 @@ read -e
 
 file=/etc/apt/sources.list
 sed -E "s/^# (deb.* partner)$/\1/g" -i "$file"
-echo "" >> "$file"
 cd /etc && commit_if_needed "Allow 'partner' packages."
+
+file=/etc/apt/sources.list.d/google-chrome.list
+echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > "$file"
+sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
+    | sudo apt-key add -
+cd /etc && commit_if_needed "Add Google Chrome repository."
+
 apt-get update
 
 apt-get -qq -y install \
