@@ -325,6 +325,14 @@ if [[ "$REPLY" == y || "$REPLY" == Y ]] ; then
 fi
 
 
+# CLEAR OUT OLD PACKAGES ================================
+
+step="clean out old packages"
+apt-get -qq update && apt-get -qq -y autoremove
+cd /etc && git add --all && commit_if_needed "$step"
+ask_to_proceed "$step"
+
+
 # KERNEL UPGRADE ========================================
 
 step="kernel upgrade"
