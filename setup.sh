@@ -13,6 +13,8 @@ fi
 
 function ask_to_proceed() {
     echo "> > > > >  $1 DONE"
+    echo ""
+    echo ""
 
     # Uncomment the remaining lines if you want each step to ask you
     # whether to proceed or not.
