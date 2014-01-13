@@ -273,7 +273,7 @@ step_header "$step"
 echo -n "Do you want to watch Netflix on this computer? [N|y]: "
 read -e
 if [[ "$REPLY" == y || "$REPLY" == Y ]] ; then
-	apt-add-repository ppa:ehoover/compholio
+	apt-add-repository -y ppa:ehoover/compholio
 	apt-get update
 	apt-get -qq -y install netflix-desktop
 	cd /etc && git add --all && commit_if_needed "$step"
