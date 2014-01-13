@@ -379,6 +379,8 @@ if [[ "$REPLY" == y || "$REPLY" == Y ]] ; then
     done
 fi
 
+ask_to_proceed "$step"
+
 
 # CLEAR OUT OLD PACKAGES ================================
 
