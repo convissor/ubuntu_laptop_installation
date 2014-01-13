@@ -11,6 +11,10 @@ if [[ $1 == "-h" || $1 == "--help" || $1 == "help" ]] ; then
 fi
 
 
+function step_header() {
+    echo "> > > > >  $1 START"
+}
+
 function ask_to_proceed() {
     echo "> > > > >  $1 DONE"
     echo ""
@@ -34,6 +38,9 @@ repo_dir="$(cd "$(dirname "$0")" && pwd)"
 
 # SETUP ROOT SSH KEYS =====================================
 
+step="root ssh keys"
+step_header "$step"
+
 mkdir -m 700 /root/.ssh
 cd /root/.ssh
 ssh-keygen -t rsa -C root@localhost -f id_rsa-root
@@ -48,10 +55,13 @@ EOSSH
 chmod 700 /root/.ssh
 chmod 600 /root/.ssh/*
 
+ask_to_proceed "$step"
+
 
 # TRACK ALL CONFIGURATION CHANGES =========================
 
 step="git"
+step_header "$step"
 apt-get -qq -y install git-core git-doc
 cd /etc
 git init
@@ -71,6 +81,7 @@ ask_to_proceed "$step"
 # SOFTWARE UPGRADE ========================================
 
 step="upgrade"
+step_header "$step"
 apt-get -qq update && apt-get -qq -y upgrade
 cd /etc && git add --all && commit_if_needed "$step mods"
 ask_to_proceed "$step"
@@ -79,6 +90,7 @@ ask_to_proceed "$step"
 # MAKE GRUB USABLE ========================================
 
 step="grub fixup"
+step_header "$step"
 file=/etc/default/grub
 # Get grub menu to show by commenting out this option.
 sed -E "s/(GRUB_HIDDEN_TIMEOUT.*)/#\1/g" -i "$file"
@@ -97,6 +109,9 @@ ask_to_proceed "$step"
 
 # IPTABLES ================================================
 
+step="iptables-persistent"
+step_header "$step"
+
 iptables_file=/etc/iptables/rules.v4
 ip6tables_file=/etc/iptables/rules.v6
 
@@ -105,7 +120,6 @@ echo "Say NO both times to the pop up asking to save the IP tables data."
 echo -n "Press ENTER to continue..."
 read -e
 
-step="iptables-persistent"
 apt-get -qq -y install iptables-persistent
 cd /etc && git add --all && commit_if_needed "$step"
 
@@ -146,6 +160,7 @@ ask_to_proceed "$step"
 # FAIL2BAN ================================================
 
 step="fail2ban"
+step_header "$step"
 apt-get -qq -y install fail2ban
 cd /etc && git add --all && commit_if_needed "$step"
 
@@ -159,6 +174,7 @@ ask_to_proceed "$step"
 # SSHD ====================================================
 
 step="sshd"
+step_header "$step"
 apt-get install -qq -y openssh-server openssh-blacklist openssh-blacklist-extra
 cd /etc && git add --all && commit_if_needed "$step"
 
@@ -173,6 +189,7 @@ ask_to_proceed "$step"
 # AUTOMATIC UPGRADES ======================================
 
 step="automatic upgrades"
+step_header "$step"
 
 # Have unattended-upgrades run automatically.
 file=/etc/apt/apt.conf.d/10periodic
@@ -199,6 +216,7 @@ ask_to_proceed "$step"
 # DESIRED SOFTWARE ========================================
 
 step="desired software"
+step_header "$step"
 
 echo ""
 echo "During the next step, you'll be asked to set up Postfix."
@@ -239,6 +257,7 @@ ask_to_proceed "$step"
 # NETFLIX DESKTOP =========================================
 
 step="netflix desktop"
+step_header "$step"
 
 echo -n "Do you want to watch Netflix on this computer? [N|y]: "
 read -e
@@ -254,6 +273,7 @@ fi
 # USER INTERFACE TWEAKS ===================================
 
 step="user interface tweaks"
+step_header "$step"
 
 # Don't give away user names to intruders.
 echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
@@ -291,6 +311,7 @@ ask_to_proceed "$step"
 # REGULAR USER ============================================
 
 step="regular user"
+step_header "$step"
 
 loop_again=1
 while [ $loop_again -eq 1 ] ; do
@@ -351,6 +372,7 @@ fi
 # CLEAR OUT OLD PACKAGES ================================
 
 step="clean out old packages"
+step_header "$step"
 apt-get -qq update && apt-get -qq -y autoremove
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
@@ -359,6 +381,7 @@ ask_to_proceed "$step"
 # KERNEL UPGRADE ========================================
 
 step="kernel upgrade"
+step_header "$step"
 apt-get -qq update && apt-get -qq -y dist-upgrade
 cd /etc && git add --all && commit_if_needed "$step mods"
 if [ -a /var/run/reboot-required ] ; then
