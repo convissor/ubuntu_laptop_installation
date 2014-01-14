@@ -8,6 +8,7 @@ on a PC laptop.  Notable features:
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
 * Installs common utilities
 * Sets up administrative access via `ssh root@localhost`
+* Includes a shell script to install Netflix Desktop
 
 
 Prepare Installation Media
@@ -130,6 +131,9 @@ You can log in as root via `ssh root@localhost`
 To lock the screen, hit CTRL-ALT-L
 
 To check DNS settings, call `nm-tool`
+
+To install Netflix Desktop, run the `netflix-desktop.sh` script from this
+repository
 
 To change the password of the encrypted drive.  Watch bootup for which device
 is being decrypted (eg: `sda5_crypt`).  If the drive is something other than

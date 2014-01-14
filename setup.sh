@@ -265,22 +265,6 @@ cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
 
-# NETFLIX DESKTOP =========================================
-
-step="netflix desktop"
-step_header "$step"
-
-echo -n "Do you want to watch Netflix on this computer? [N|y]: "
-read -e
-if [[ "$REPLY" == y || "$REPLY" == Y ]] ; then
-	apt-add-repository -y ppa:ehoover/compholio
-	apt-get update
-	apt-get -qq -y install netflix-desktop
-	cd /etc && git add --all && commit_if_needed "$step"
-	ask_to_proceed "$step"
-fi
-
-
 # USER INTERFACE TWEAKS ===================================
 
 step="user interface tweaks"
@@ -403,3 +387,6 @@ if [ -a /var/run/reboot-required ] ; then
     read -e
     shutdown -r now
 fi
+ask_to_proceed "$step"
+
+echo "That's all, folks!  Enjoy your new Ubuntu installation."
