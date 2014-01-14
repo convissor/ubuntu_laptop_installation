@@ -386,6 +386,7 @@ if [ -a /var/run/reboot-required ] ; then
     echo -n "Press ENTER to continue..."
     read -e
     shutdown -r now
+    exit
 fi
 ask_to_proceed "$step"
 
