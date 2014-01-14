@@ -245,7 +245,7 @@ sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
     | sudo apt-key add -
 cd /etc && git add --all && commit_if_needed "Add Google Chrome repository."
 
-apt-get update
+apt-get -qq update
 
 apt-get -qq -y install \
     git-svn git-cvs gitk subversion subversion-tools cvs mercurial \
@@ -370,7 +370,7 @@ ask_to_proceed "$step"
 
 step="clean out old packages"
 step_header "$step"
-apt-get -qq update && apt-get -qq -y autoremove
+apt-get -qq -y autoremove
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
@@ -379,7 +379,7 @@ ask_to_proceed "$step"
 
 step="kernel upgrade"
 step_header "$step"
-apt-get -qq update && apt-get -qq -y dist-upgrade
+apt-get -qq -y dist-upgrade
 cd /etc && git add --all && commit_if_needed "$step mods"
 if [ -a /var/run/reboot-required ] ; then
     echo "REBOOT IS REQURED"

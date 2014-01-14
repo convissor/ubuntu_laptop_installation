@@ -49,7 +49,7 @@ ask_to_proceed "$step"
 
 step="kernel upgrade"
 step_header "$step"
-apt-get -qq update && apt-get -qq -y dist-upgrade
+apt-get -qq -y dist-upgrade
 cd /etc && git add --all && commit_if_needed "$step mods"
 if [ -a /var/run/reboot-required ] ; then
     echo "REBOOT IS REQURED"
@@ -72,7 +72,7 @@ step="netflix desktop"
 step_header "$step"
 
 apt-add-repository -y ppa:ehoover/compholio
-apt-get update
+apt-get -qq update
 apt-get -qq -y install netflix-desktop
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
