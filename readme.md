@@ -1,8 +1,8 @@
 Ubuntu Laptop Installation
 ==========================
 
-Instructions and bash scripts for installing and configuring Ubuntu 12.04
-on a PC laptop.  Notable features:
+Instructions and bash scripts for installing and configuring Ubuntu 14.04
+(Trusty Tahr) on a PC laptop.  Notable features:
 
 * Encrypts entire hard drive
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
@@ -10,14 +10,20 @@ on a PC laptop.  Notable features:
 * Sets up administrative access via `ssh root@localhost`
 * Includes a shell script to install Netflix Desktop
 
+WARNING: 14.04 has not been released yet.  It and these instructions are
+experimental.
+
 
 Prepare Installation Media
 ==========================
 
-* [Obtain the "alternate" installer](http://releases.ubuntu.com/12.04/)
+* [Obtain the "live" demo / installer](http://cdimage.ubuntu.com/daily-live/current/trusty-desktop-amd64.iso)
 * Put a USB stick in your existing computer
 * As a user with sudo powers:  System | Administration | Startup Disk Creator
 * Unmount the USB drive and remove it
+
+Note: the regular installer for 14.04 now includes the ability to implement
+whole drive encryption.  In 12.04, one had to use the "alternate" installer.
 
 
 Disable UEFI
@@ -66,8 +72,8 @@ This prevents destructive commands from being inadvertently executed.
 When asked whether to encrypt the home directory, say no.  It's unnecessary
 because the whole drive will be encrypted.
 
-Once the "Partition disks" screen comes up, pick: `Guided - use entire disk
-and set up ecrypted LVM`
+Once the "Partition disks" screen comes up, pick the option for encrypting
+the whole drive.
 
 
 Configuration
@@ -87,7 +93,7 @@ Then issue the following commands:
 
     sudo -i
 
-    wget https://raw.github.com/convissor/ubuntu_laptop_installation/master/setup.sh
+    wget https://raw.github.com/convissor/ubuntu_laptop_installation/14.04/setup.sh
     chmod 700 setup.sh
     ./setup.sh
 
