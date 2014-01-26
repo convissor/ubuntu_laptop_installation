@@ -41,10 +41,23 @@ repo_dir="$(cd "$(dirname "$0")" && pwd)"
 step="root ssh keys"
 step_header "$step"
 
-mkdir -m 700 /root/.ssh
-cd /root/.ssh
-ssh-keygen -t rsa -C root@localhost -f id_rsa-root
-cp id_rsa-root.pub authorized_keys
+if [ ! -d /root/.ssh ] ; then
+    make_keys=1
+    while read dir ; do
+        make_keys=0
+        echo "Copying $dir"
+        cp -R "$dir" /root
+        break
+    done < <(find /home -maxdepth 2 -type d -name .ssh)
+else
+    make_keys=0
+fi
+
+if [ $make_keys == 1 ] ; then
+    mkdir -m 700 /root/.ssh
+    cd /root/.ssh
+    ssh-keygen -t rsa -C root@localhost -f id_rsa-root
+    cp id_rsa-root.pub authorized_keys
 
 cat >> config <<EOSSH
 ForwardAgent no
@@ -52,7 +65,11 @@ Host localhost
 IdentityFile ~/.ssh/id_rsa-root
 EOSSH
 
-chmod 700 /root/.ssh
+else
+    echo "~/.ssh found.  Skipping SSH key generation."
+    chmod 700 /root/.ssh
+fi
+
 chmod 600 /root/.ssh/*
 
 ask_to_proceed "$step"

@@ -90,6 +90,10 @@ Fire up a terminal session.  Here are two possible ways:
 1. ALT-F1, Enter, type in `terminal`, Enter
 1. CTRL-ALT-T
 
+Our setup process creates SSH keys for logging into the `root` account.
+If you already have an SSH key you want to use for this purpose, copy it
+over to `~/.ssh` now.
+
 Then issue the following commands:
 
     chmod 700 .
