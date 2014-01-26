@@ -81,7 +81,7 @@ ask_to_proceed "$step"
 # THE END ===============================================
 echo "Fini!"
 echo "Now run Netflix Desktop."
-echo "    ALT-F1, Type 'netflix' | Hit Enter"
+echo "    ALT-F1, Enter, Type 'netflix', Enter"
 echo ""
 echo "Follow the Wine Mono and Wine Gecko install instructions that appear."
 echo ""
