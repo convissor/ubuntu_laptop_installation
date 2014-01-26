@@ -272,12 +272,15 @@ apt-get -qq -y install \
     konversation skype mutt links lynx google-chrome-stable curl \
     flashplugin-installer qt4-qtconfig \
     vim exuberant-ctags \
-    epdfview pdfedit okular okular-extra-backends poppler-utils \
+    okular okular-extra-backends poppler-utils \
     antiword tofrodos ack-grep gawk \
     sqlite3 sqlite3-doc \
     ntp traceroute gparted lm-sensors htop screen \
-    myunity gnome-session-fallback gnome-panel gnome-tweak-tool \
+    gnome-session-fallback gnome-panel gnome-tweak-tool \
     gimp gimp-help-en
+
+# Packages not available in trusty (as of yet):
+# epdfview pdfedit myunity
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
 
