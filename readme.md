@@ -22,6 +22,9 @@ Prepare Installation Media
 * As a user with sudo powers:  System | Administration | Startup Disk Creator
 * Unmount the USB drive and remove it
 
+If Startup Disk Creator gives you problems, or you don't want to bother with
+it, you can use `dd` to copy the ISO to your USB stick.
+
 Note: the regular installer for 14.04 now includes the ability to implement
 whole drive encryption.  In 12.04, one had to use the "alternate" installer.
 
