@@ -34,6 +34,7 @@ function commit_if_needed() {
 }
 
 repo_dir="$(cd "$(dirname "$0")" && pwd)"
+admin_user=$(grep 1000 /etc/passwd | awk -F ':' '{print $1}')
 
 
 # SETUP ROOT SSH KEYS =====================================
@@ -43,12 +44,12 @@ step_header "$step"
 
 if [ ! -d /root/.ssh ] ; then
     make_keys=1
-    while read dir ; do
+    dir="/home/$admin_user/.ssh"
+    if [ -d "$dir" ] ; then
         make_keys=0
         echo "Copying $dir"
         cp -R "$dir" /root
-        break
-    done < <(find /home -maxdepth 2 -type d -name .ssh)
+    fi
 else
     make_keys=0
 fi
@@ -66,7 +67,9 @@ IdentityFile ~/.ssh/id_rsa-root
 EOSSH
 
 else
-    echo "~/.ssh found.  Skipping SSH key generation."
+    if [ ! -d "$dir" ] ; then
+        echo "~/.ssh found.  Skipping SSH key generation."
+    fi
     chmod 700 /root/.ssh
 fi
 
@@ -349,7 +352,6 @@ fi
 
 # Have root and admin user email alerts go to the regular user.
 file=/etc/aliases
-admin_user=$(grep 1000 /etc/passwd | awk --field-separator ':' '{print $1}')
 echo "root: $user" >> "$file"
 echo "$admin_user: $user" >> "$file"
 newaliases
