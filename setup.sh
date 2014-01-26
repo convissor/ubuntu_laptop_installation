@@ -99,12 +99,12 @@ ask_to_proceed "$step"
 
 
 # USE EU REPOSITORIES =====================================
-# The us. repositories are VERRRRRRRRRY slow (eg 150 KB/s)
+# The default us. repositories are VERRRRRRRRRY slow (eg 150 KB/s)
 
-step="use eu repositories instead of us. (us servers are very slow.)"
+step="use anl.gov repository instead of ubuntu's"
 step_header "$step"
 file=/etc/apt/sources.list
-sed -E "s/us\.archive/eu.archive/g" -i "$file"
+sed -E "s/us\.archive\.ubuntu\.com/mirror.anl.gov/g" -i "$file"
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
