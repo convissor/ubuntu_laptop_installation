@@ -2,7 +2,7 @@ Ubuntu Laptop Installation
 ==========================
 
 Instructions and bash scripts for installing and configuring Ubuntu 12.04
-on a PC laptop.  Notable features:
+(Precise Pagnolian) on a PC laptop.  Notable features:
 
 * Encrypts entire hard drive
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
@@ -90,7 +90,7 @@ Then issue the following commands:
 
     sudo -i
 
-    wget https://raw.github.com/convissor/ubuntu_laptop_installation/master/setup.sh
+    wget https://raw.github.com/convissor/ubuntu_laptop_installation/12.04/setup.sh
     chmod 700 setup.sh
     ./setup.sh
 
