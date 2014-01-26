@@ -19,6 +19,9 @@ Prepare Installation Media
 * As a user with sudo powers:  System | Administration | Startup Disk Creator
 * Unmount the USB drive and remove it
 
+If Startup Disk Creator gives you problems, or you don't want to bother with
+it, you can use `dd` to copy the ISO to your USB stick.
+
 
 Disable UEFI
 ============
