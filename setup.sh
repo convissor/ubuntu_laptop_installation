@@ -281,6 +281,10 @@ apt-get -qq -y install \
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
 
+# Multimedia codecs and DVD playback.
+apt-get -qq -y install ubuntu-restricted-extras
+/usr/share/doc/libdvdread4/install-css.sh
+
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
