@@ -2,7 +2,7 @@ Ubuntu Laptop Installation
 ==========================
 
 Instructions and bash scripts for installing and configuring Ubuntu 14.04
-(Trusty Tahr) on a PC laptop.  Notable features:
+(Trusty Tahr) or 13.10 (Saucy Salamander) on a PC laptop.  Notable features:
 
 * Encrypts entire hard drive
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
