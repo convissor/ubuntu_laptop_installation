@@ -294,6 +294,10 @@ ask_to_proceed "$step"
 step="user interface tweaks"
 step_header "$step"
 
+# Lightdm chokes if the section heading is not there
+# https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/1164793
+echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf
+
 # Don't give away user names to intruders.
 echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
 
