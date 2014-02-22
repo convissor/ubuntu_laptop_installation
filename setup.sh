@@ -346,6 +346,8 @@ while [ $loop_again -eq 1 ] ; do
 done
 
 adduser "$user"
+adduser "$user" cdrom
+adduser "$user" plugdev
 
 if [ -d /root/.ssh ] ; then
     cp -R /root/.ssh "/home/$user"
