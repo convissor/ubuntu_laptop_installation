@@ -35,9 +35,10 @@ Disable UEFI
 UEFI is a process by which the BIOS monitors boot records.  This can keep
 Ubuntu from booting.  To work around this problem, it's necessary to disable
 UEFI __before__ installing the operating system.  Boot the computer and get
-into the BIOS setup mode.  As an example, this is how I did it and the various
-settings that need checking on a Lenovo E31 ThinkStation.
+into the BIOS setup mode.  Here are two examples:
 
+Lenovo E31 ThinkStation
+-----------------------
 * When booting, repeatedly hit F1 until the BIOS screen appears
 * Startup
 	* Boot Mode: Legacy
@@ -45,7 +46,17 @@ settings that need checking on a Lenovo E31 ThinkStation.
 * Devices
 	* Configure SATA as: ACHI
 
-For more information, see https://help.ubuntu.com/community/UEFI
+Asus H87M-PRO Motherboard
+-------------------------
+* When booting, repeatedly hit DELETE until the BIOS screen appears
+* F7 for Advanced Mode
+* Boot
+* Secure Boot: OS Type: Other OS
+* Save and reboot
+
+More Information
+----------------
+https://help.ubuntu.com/community/UEFI
 
 
 Installation
