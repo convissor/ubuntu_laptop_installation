@@ -236,9 +236,25 @@ else
     echo 'APT::Periodic::Unattended-Upgrade "1";' >> "$file"
 fi
 
+# Clean the package cache every now and then.
+set +e
+grep -q "APT::Periodic::AutocleanInterval" "$file"
+if [ $? -eq 0 ] ; then
+    # Something is in there. Make sure it's enabled.
+    set -e
+    sed -E 's@^/*(\s*APT::Periodic::AutocleanInterval\s+)"[0-9]+"@\1"14"@g' -i "$file"
+else
+    # Nothing is in there. Add it.
+    set -e
+    echo 'APT::Periodic::AutocleanInterval "14"' >> "$file"
+fi
+
 # Uncomment all origins so all upgrades get installed automatically.
 file=/etc/apt/apt.conf.d/50unattended-upgrades
 sed -E 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
+
+# Remove outdated packages and kernels to prevent drive from filling up.
+sed -E 's@^/*(\s*Unattended-Upgrade::Remove-Unused-Dependencies\s+)"false"@\1"true"@g' -i "$file"
 
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
