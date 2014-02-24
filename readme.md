@@ -2,7 +2,12 @@ Ubuntu Laptop Installation
 ==========================
 
 Instructions and bash scripts for installing and configuring Ubuntu 12.04
-(Precise Pagnolian) on a PC laptop.  Notable features:
+(Precise Pagnolian) on a PC laptop.  Works great for desktops too.
+
+See this repository's "14.04" branch for setting up Trusty Tahr or
+Saucy Salamander.
+
+Notable features:
 
 * Encrypts entire hard drive
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
