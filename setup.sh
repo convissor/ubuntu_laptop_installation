@@ -312,16 +312,20 @@ ask_to_proceed "$step"
 
 step="user interface tweaks"
 step_header "$step"
+file=/etc/lightdm/lightdm.conf
 
 # Lightdm chokes if the section heading is not there
 # https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/1164793
-echo "[SeatDefaults]" > /etc/lightdm/lightdm.conf
+echo "[SeatDefaults]" > "$file"
+
+# Need this to prevent "The system is running in low-graphics mode"
+echo "greeter-session=unity-greeter" >> "$file"
 
 # Don't give away user names to intruders.
-echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
+echo "greeter-hide-users=true" >> "$file"
 
 # Remove the guest session.
-echo "allow-guest=false" >> /etc/lightdm/lightdm.conf
+echo "allow-guest=false" >> "$file"
 
 # Ditch the annoying new scroll bar format.
 echo "export LIBOVERLAY_SCROLLBAR=0" >> /etc/X11/Xsession.d/80overlayscrollbars
