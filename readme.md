@@ -2,7 +2,12 @@ Ubuntu Laptop Installation
 ==========================
 
 Instructions and bash scripts for installing and configuring Ubuntu 14.04
-(Trusty Tahr) or 13.10 (Saucy Salamander) on a PC laptop.  Notable features:
+(Trusty Tahr) or 13.10 (Saucy Salamander) on a PC laptop.
+Works great for desktops too.
+
+See this repository's "12.04" branch for setting up Precise Pangolin.
+
+Notable features:
 
 * Encrypts entire hard drive
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
