@@ -38,7 +38,7 @@ repo_dir="$(cd "$(dirname "$0")" && pwd)"
 
 # ENSURE ALL SOFTWARE IS UP TO DATE =====================
 
-step="upgrade"
+step="upgrade installed software"
 step_header "$step"
 apt-get -qq update && apt-get -qq -y upgrade
 cd /etc && git add --all && commit_if_needed "$step mods"
