@@ -286,7 +286,7 @@ apt-get -qq update
 apt-get -qq -y install \
     git-svn git-cvs gitk subversion subversion-tools cvs mercurial \
     konversation skype mutt links lynx google-chrome-stable curl \
-    flashplugin-installer qt4-qtconfig \
+    gnome-mplayer flashplugin-installer qt4-qtconfig \
     vim exuberant-ctags \
     epdfview pdfedit okular okular-extra-backends poppler-utils \
     antiword tofrodos ack-grep gawk \
