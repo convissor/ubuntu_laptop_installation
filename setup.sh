@@ -286,8 +286,8 @@ apt-get -qq update
 apt-get -qq -y install \
     git-svn git-cvs gitk subversion subversion-tools cvs mercurial \
     konversation skype mutt links lynx google-chrome-stable curl \
-    flashplugin-installer qt4-qtconfig \
-    vim exuberant-ctags \
+    gnome-mplayer flashplugin-installer qt4-qtconfig \
+    vim \
     okular okular-extra-backends poppler-utils \
     antiword tofrodos ack-grep gawk \
     sqlite3 sqlite3-doc \
@@ -303,6 +303,16 @@ ln -s /usr/bin/ack-grep /usr/bin/ack
 # Multimedia codecs and DVD playback.
 apt-get -qq -y install ubuntu-restricted-extras
 /usr/share/doc/libdvdread4/install-css.sh
+
+# Install Exuberant Ctags from source.  5.8 has bugs.
+mkdir -p /usr/local/src
+cd /usr/local/src
+svn checkout svn://svn.code.sf.net/p/ctags/code/trunk/ ctags
+cd ctags
+autoreconf
+./configure
+make
+make install
 
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
