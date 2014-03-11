@@ -104,7 +104,7 @@ ask_to_proceed "$step"
 step="use anl.gov repository instead of ubuntu's"
 step_header "$step"
 file=/etc/apt/sources.list
-sed -E "s/us\.archive\.ubuntu\.com/mirror.anl.gov/g" -i "$file"
+sed "s/us\.archive\.ubuntu\.com/mirror.anl.gov/g" -i "$file"
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
@@ -124,9 +124,9 @@ step="grub fixup"
 step_header "$step"
 file=/etc/default/grub
 # Get grub menu to show by commenting out this option.
-sed -E "s/(GRUB_HIDDEN_TIMEOUT.*)/#\1/g" -i "$file"
+sed -r "s/(GRUB_HIDDEN_TIMEOUT.*)/#\1/g" -i "$file"
 # Shorten timeout to 5 seconds.
-sed -E "s/(GRUB_TIMEOUT=.*)$/GRUB_TIMEOUT=5/g" -i "$file"
+sed -r "s/(GRUB_TIMEOUT=.*)$/GRUB_TIMEOUT=5/g" -i "$file"
 
 # Get rid of "error: no video mode activated."
 # https://bugs.launchpad.net/ubuntu/+source/grub2/+bug/699802
@@ -197,7 +197,7 @@ cd /etc && git add --all && commit_if_needed "$step"
 
 file=/etc/fail2ban/jail.conf
 # Increase lockout length from 10 minutes to 1 day.
-sed -E "s/^bantime\s+=.*/bantime = 86400/g" -i "$file"
+sed -r "s/^bantime\s+=.*/bantime = 86400/g" -i "$file"
 
 ask_to_proceed "$step"
 
@@ -210,7 +210,7 @@ apt-get install -qq -y openssh-server openssh-blacklist openssh-blacklist-extra
 cd /etc && git add --all && commit_if_needed "$step"
 
 file=/etc/ssh/sshd_config
-sed -E "s/^PermitRootLogin\s+(.*)/PermitRootLogin without-password/g" -i "$file"
+sed -r "s/^PermitRootLogin\s+(.*)/PermitRootLogin without-password/g" -i "$file"
 commit_if_needed "$step mods"
 
 service ssh reload
@@ -229,7 +229,7 @@ grep -q "APT::Periodic::Unattended-Upgrade" "$file"
 if [ $? -eq 0 ] ; then
     # Something is in there. Make sure it's enabled.
     set -e
-    sed -E 's@^/*(\s*APT::Periodic::Unattended-Upgrade\s+)"[0-9]+"@\1"1"@g' -i "$file"
+    sed -r 's@^/*(\s*APT::Periodic::Unattended-Upgrade\s+)"[0-9]+"@\1"1"@g' -i "$file"
 else
     # Nothing is in there. Add it.
     set -e
@@ -242,7 +242,7 @@ grep -q "APT::Periodic::AutocleanInterval" "$file"
 if [ $? -eq 0 ] ; then
     # Something is in there. Make sure it's enabled.
     set -e
-    sed -E 's@^/*(\s*APT::Periodic::AutocleanInterval\s+)"[0-9]+"@\1"14"@g' -i "$file"
+    sed -r 's@^/*(\s*APT::Periodic::AutocleanInterval\s+)"[0-9]+"@\1"14"@g' -i "$file"
 else
     # Nothing is in there. Add it.
     set -e
@@ -251,10 +251,10 @@ fi
 
 # Uncomment all origins so all upgrades get installed automatically.
 file=/etc/apt/apt.conf.d/50unattended-upgrades
-sed -E 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
+sed -r 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
 
 # Remove outdated packages and kernels to prevent drive from filling up.
-sed -E 's@^/*(\s*Unattended-Upgrade::Remove-Unused-Dependencies\s+)"false"@\1"true"@g' -i "$file"
+sed -r 's@^/*(\s*Unattended-Upgrade::Remove-Unused-Dependencies\s+)"false"@\1"true"@g' -i "$file"
 
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
@@ -272,7 +272,7 @@ echo -n "Press ENTER to continue..."
 read -e
 
 file=/etc/apt/sources.list
-sed -E "s/^# (deb.* partner)$/\1/g" -i "$file"
+sed -r "s/^# (deb.* partner)$/\1/g" -i "$file"
 cd /etc && commit_if_needed "Allow 'partner' packages."
 
 file=/etc/apt/sources.list.d/google-chrome.list
