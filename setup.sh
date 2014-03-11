@@ -98,7 +98,7 @@ commit_if_needed "$step"
 ask_to_proceed "$step"
 
 
-# USE EU REPOSITORIES =====================================
+# CHANGE REPOSITORY =======================================
 # The default us. repositories are VERRRRRRRRRY slow (eg 150 KB/s)
 
 step="use anl.gov repository instead of ubuntu's"
