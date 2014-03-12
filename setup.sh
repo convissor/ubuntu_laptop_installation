@@ -169,8 +169,11 @@ cat > "$iptables_file" <<EOIPT
 # Outbound packets are fine.
 :OUTPUT ACCEPT
 
-# Allow HTTP,HTTPS.
+# Uncomment next line to allow HTTP,HTTPS.
 #-A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+
+# Uncomment next line to allow SSH.
+#-A INPUT -p tcp -m multiport --dports 22 -j ACCEPT
 
 # Allow responses our outgoing transmissions.
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
