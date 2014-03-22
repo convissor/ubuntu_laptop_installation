@@ -1,0 +1,16 @@
+#! /bin/bash
+
+if [[ $1 == "-h" || $1 == "--help" ]] ; then
+    echo "Usage: run automatically by git checkout"
+    echo ""
+    echo "Executes our .git/hooks/ctags script after git checkout is run."
+    echo ""
+    echo "Author: Daniel Convissor <danielc@analysisandsolutions.com>"
+    echo "https://github.com/convissor/ubuntu_laptop_installation"
+    echo ""
+    echo "The components combining git and ctags are based on"
+    echo "http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html"
+    exit 1
+fi
+
+.git/hooks/ctags > /dev/null 2>&1 &

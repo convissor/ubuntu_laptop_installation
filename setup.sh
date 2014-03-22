@@ -308,15 +308,46 @@ ln -s /usr/bin/ack-grep /usr/bin/ack
 apt-get -qq -y install ubuntu-restricted-extras
 /usr/share/doc/libdvdread4/install-css.sh
 
+cd /etc && git add --all && commit_if_needed "$step"
+ask_to_proceed "$step"
+
+
+# CTAGS AND GIT HOOKS =====================================
+
+step="exuberant ctags and related git hooks"
+step_header "$step"
+
+source_dir=/usr/local/src
+bin_dir=/usr/local/bin
+
 # Install Exuberant Ctags from source.  5.8 has bugs.
-mkdir -p /usr/local/src
-cd /usr/local/src
+mkdir -p "$source_dir"
+
+cd "$source_dir"
 svn checkout svn://svn.code.sf.net/p/ctags/code/trunk/ ctags
 cd ctags
 autoreconf
 ./configure
 make
 make install
+
+
+# Ensure the template directory is there.
+mkdir -p /usr/share/git-core/templates/hooks
+
+# Put our hooks in the template directory.
+cp "$repo_dir/git-hooks/*" /usr/share/git-core/templates/hooks
+
+# Make calling "git ctags" execute our ctags script.
+git config --system alias.ctags '!.git/hooks/ctags'
+
+
+# Obtain and install my Ctags for SVN script.
+cd "$source_dir"
+git clone git://github.com/convissor/ctags_for_svn
+cp ctags_for_svn/ctags_for_svn.sh "$bin_dir"
+ln -s "$source_dir/ctags_for_svn.sh" "$bin_dir/ctags_for_svn.sh"
+
 
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
