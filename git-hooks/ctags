@@ -1,0 +1,33 @@
+#! /bin/bash -e
+
+if [[ $1 == "-h" || $1 == "--help" ]] ; then
+	echo "Usage: ctags [optional arguments]"
+	echo ""
+	echo "Runs ctags on the current git repository and stores the output"
+	echo "in .git/tags."
+	echo ""
+	echo "Author: Daniel Convissor <danielc@analysisandsolutions.com>"
+	echo "https://github.com/convissor/ubuntu_laptop_installation"
+	echo ""
+	echo "The components combining git and ctags are based on"
+	echo "http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html"
+	exit 1
+fi
+
+# Temporary file name has process id appended to it.
+file_temp=.git/tags.$$
+file_perm=.git/tags
+
+# When the script exits, quietly remove the temporary file, if any.
+trap "rm -f '$file_temp'" EXIT
+
+# Recursively parse the repository.
+# Put the output into a (temporary) file named tags.<process id>.
+# Don't parse the .git directory.
+# Don't analyze JavaScript or SQL files.
+# Don't analyze variables in PHP files.
+# Pass along any extra arguments.
+ctags -Rf"$file_temp" --exclude=.git --languages=-javascript,sql \
+	--php-kinds=-v "$@"
+
+mv "$file_temp" "$file_perm"
