@@ -335,7 +335,9 @@ make install
 # Ensure the template directory is there.
 mkdir -p /usr/share/git-core/templates/hooks
 
-# Put our hooks in the template directory.
+# Put our hooks in Git's default template directory.
+# Then, whenever git init or clone are called, these files get copied into the new
+# repository's hooks directory.
 cp "$repo_dir/git-hooks/*" /usr/share/git-core/templates/hooks
 
 # Make calling "git ctags" execute our ctags script.
