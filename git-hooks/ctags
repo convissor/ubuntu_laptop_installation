@@ -22,12 +22,13 @@ file_perm=.git/tags
 trap "rm -f '$file_temp'" EXIT
 
 # Recursively parse the repository.
+# Record paths relative to the tag file.
 # Put the output into a (temporary) file named tags.<process id>.
 # Don't parse the .git directory.
 # Don't analyze JavaScript or SQL files.
 # Don't analyze variables in PHP files.
 # Pass along any extra arguments.
-ctags -Rf"$file_temp" --exclude=.git --languages=-javascript,sql \
+ctags -Rf"$file_temp" --tag-relative --exclude=.git --languages=-javascript,sql \
 	--php-kinds=-v "$@"
 
 mv "$file_temp" "$file_perm"
