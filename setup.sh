@@ -82,7 +82,7 @@ ask_to_proceed "$step"
 
 step="git"
 step_header "$step"
-apt-get -qq -y install git-core git-doc
+
 cd /etc
 git init
 chmod 770 .git

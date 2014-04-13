@@ -115,8 +115,10 @@ Then issue the following commands:
 
     sudo -i
 
-    wget https://raw.github.com/convissor/ubuntu_laptop_installation/12.04/setup.sh
-    chmod 700 setup.sh
+    apt-get install git-core git-doc
+    git clone git://github.com/convissor/ubuntu_laptop_installation.git
+    cd ubuntu_laptop_installation
+
     ./setup.sh
 
 The last step of the setup script updates the kernel, if necessary.  If that
