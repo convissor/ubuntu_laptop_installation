@@ -338,7 +338,7 @@ mkdir -p /usr/share/git-core/templates/hooks
 # Put our hooks in Git's default template directory.
 # Then, whenever git init or clone are called, these files get copied into the new
 # repository's hooks directory.
-cp "$repo_dir/git-hooks/*" /usr/share/git-core/templates/hooks
+cp "$repo_dir/git-hooks/"* /usr/share/git-core/templates/hooks
 
 # Make calling "git ctags" execute our ctags script.
 git config --system alias.ctags '!.git/hooks/ctags'
@@ -347,7 +347,6 @@ git config --system alias.ctags '!.git/hooks/ctags'
 # Obtain and install my Ctags for SVN script.
 cd "$source_dir"
 git clone git://github.com/convissor/ctags_for_svn
-cp ctags_for_svn/ctags_for_svn.sh "$bin_dir"
 ln -s "$source_dir/ctags_for_svn.sh" "$bin_dir/ctags_for_svn.sh"
 
 
