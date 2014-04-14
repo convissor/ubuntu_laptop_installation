@@ -347,7 +347,7 @@ git config --system alias.ctags '!.git/hooks/ctags'
 # Obtain and install my Ctags for SVN script.
 cd "$source_dir"
 git clone git://github.com/convissor/ctags_for_svn
-ln -s "$source_dir/ctags_for_svn.sh" "$bin_dir/ctags_for_svn.sh"
+ln -s "$source_dir/ctags_for_svn/ctags_for_svn.sh" "$bin_dir/ctags_for_svn.sh"
 
 
 cd /etc && git add --all && commit_if_needed "$step"
