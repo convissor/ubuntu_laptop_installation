@@ -256,6 +256,9 @@ fi
 file=/etc/apt/apt.conf.d/50unattended-upgrades
 sed -r 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
 
+# Send an email listing packages upgraded or problems.
+sed -E 's@^/*(\s*Unattended-Upgrade::Mail\s.*)@\1@g' -i "$file"
+
 # Remove outdated packages and kernels to prevent drive from filling up.
 sed -r 's@^/*(\s*Unattended-Upgrade::Remove-Unused-Dependencies\s+)"false"@\1"true"@g' -i "$file"
 
