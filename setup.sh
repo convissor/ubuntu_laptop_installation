@@ -292,7 +292,7 @@ apt-get -qq update
 apt-get -qq -y install \
     git-svn git-cvs gitk subversion subversion-tools cvs mercurial \
     autoconf autoconf-doc \
-    konversation mutt links lynx google-chrome-stable curl \
+    konversation skype mutt links lynx google-chrome-stable curl \
     gnome-mplayer flashplugin-installer qt4-qtconfig \
     vim \
     okular okular-extra-backends poppler-utils \
@@ -303,7 +303,7 @@ apt-get -qq -y install \
     gimp gimp-help-en
 
 # Packages not available in trusty (as of yet):
-# epdfview pdfedit myunity skype
+# epdfview pdfedit myunity
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
 
