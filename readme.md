@@ -19,9 +19,6 @@ Notable features:
 * Optionally installs my vim settings (part of which uses all the ctag magic, above)
 * Includes a shell script to install Netflix Desktop
 
-WARNING: 14.04 has not been released yet.  It and these instructions are
-experimental.
-
 
 Prepare Installation Media
 ==========================
