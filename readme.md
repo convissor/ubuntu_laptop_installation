@@ -118,6 +118,7 @@ Then issue the following commands:
     apt-get install git-core git-doc
     git clone git://github.com/convissor/ubuntu_laptop_installation.git
     cd ubuntu_laptop_installation
+    git checkout -b 12.04 origin/12.04
 
     ./setup.sh
 
