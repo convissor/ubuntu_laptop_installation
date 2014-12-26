@@ -245,11 +245,11 @@ grep -q "APT::Periodic::AutocleanInterval" "$file"
 if [ $? -eq 0 ] ; then
     # Something is in there. Make sure it's enabled.
     set -e
-    sed -r 's@^/*(\s*APT::Periodic::AutocleanInterval\s+)"[0-9]+"@\1"14"@g' -i "$file"
+    sed -r 's@^/*(\s*APT::Periodic::AutocleanInterval\s+)"[0-9]+"@\1"1"@g' -i "$file"
 else
     # Nothing is in there. Add it.
     set -e
-    echo 'APT::Periodic::AutocleanInterval "14"' >> "$file"
+    echo 'APT::Periodic::AutocleanInterval "1"' >> "$file"
 fi
 
 # Uncomment all origins so all upgrades get installed automatically.
