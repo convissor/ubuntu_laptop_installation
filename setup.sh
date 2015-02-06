@@ -101,10 +101,10 @@ ask_to_proceed "$step"
 # CHANGE REPOSITORY =======================================
 # The default us. repositories are VERRRRRRRRRY slow (eg 150 KB/s)
 
-step="use anl.gov repository instead of ubuntu's"
+step="use pnl.gov repository instead of ubuntu's"
 step_header "$step"
 file=/etc/apt/sources.list
-sed "s/us\.archive\.ubuntu\.com/mirror.anl.gov/g" -i "$file"
+sed "s/us\.archive\.ubuntu\.com/mirror.pnl.gov/g" -i "$file"
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
