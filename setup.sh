@@ -290,7 +290,7 @@ cd /etc && git add --all && commit_if_needed "Add Google Chrome repository."
 apt-get -qq update
 
 apt-get -qq -y install \
-    git-svn git-cvs gitk subversion subversion-tools cvs mercurial \
+    git-svn git-cvs gitk subversion subversion-tools cvs mercurial bzr \
     autoconf autoconf-doc \
     konversation skype mutt links lynx google-chrome-stable curl \
     gnome-mplayer flashplugin-installer qt4-qtconfig \
