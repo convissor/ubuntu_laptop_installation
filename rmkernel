@@ -1,0 +1,112 @@
+#! /bin/bash -e
+
+apt_file=/etc/apt/apt.conf.d/01autoremove-kernels
+
+function usage() {
+	echo "Usage:  rmkernel [options]"
+	echo ""
+	echo "Removes old Linux kernels"
+	echo ""
+	echo "Options:"
+	echo "  -a  automatically select kernels to be removed. Excludes"
+	echo "      entries found in $apt_file."
+	echo "  -h  help"
+	echo "  -k  keep this quantity of the most recent kernels (default 3)"
+	echo "  -y  yes, automatically remove automatically selected kernels"
+	echo ""
+	echo "The -a and -y options are intended for use by cron jobs."
+	echo ""
+	echo "This is part of Ubuntu Laptop Installation:"
+	echo "https://github.com/convissor/ubuntu_laptop_installation"
+	echo ""
+	echo "Author: Daniel Convissor <dconvissor@analysisandsolutions.com>"
+	exit 1
+}
+
+# Defaults.
+auto=0
+keep=3
+yes=0
+
+# Parse input.
+while getopts ":k:ay" OPTION ; do
+	case $OPTION in
+		a)
+			auto=1
+			;;
+		k)
+			keep=$OPTARG
+			if [[ $keep -lt 1 ]] ; then
+				echo "ERROR:  -k must be at least 1." 1>&2
+				exit 1
+			fi
+			if ! [[ "$keep" =~ ^[0-9]+$ ]] ; then
+				echo "ERROR:  -k must be an integer." 1>&2
+				exit 1
+			fi
+			;;
+		y)
+			yes=1
+			;;
+		?)
+			usage
+			;;
+	esac
+done
+
+
+# List all but the -k most recent kernels.
+all=$(ls -1rt /boot/vmlinuz* | sed -r 's@/boot/vmlinuz-([0-9.-]+)-generic@\1@g' | head -n -$keep)
+
+
+# Don't ask to delete entries apt has been told to keep around.
+if [ -f "$apt_file" ] ; then
+	found=
+	for one in $all ; do
+		if [[ -z $(grep "$one" "$apt_file") ]] ; then
+			found="$found $one"
+		fi
+	done
+	found=${found/ /}
+else
+	found=$all
+fi
+
+
+if [ -z "$found" ] ; then
+	if [ $auto == 0 ] ; then
+		echo "There are no kernels old enough to remove."
+	fi
+	exit
+else
+	if [ $auto == 0 ] ; then
+		echo "Which versions do you want to remove? [$found]"
+		read -e versions
+		if [ -z "$versions" ] ; then
+			versions=$found
+		fi
+	else
+		versions=$found
+	fi
+fi
+
+if [ $yes == 0 ] ; then
+	echo "You are about to remove the following Linux Kernels:"
+	echo ""
+	echo "    $versions"
+	echo ""
+	echo "Proceed? [N|y]"
+	read -e
+	if [[ "$REPLY" != "y" && "$REPLY" != "Y" ]] ; then
+		echo "No problem.  Good bye."
+		exit 1
+	fi
+fi
+
+cmd=
+
+for version in $versions ; do
+	cmd="$cmd linux-headers-$version linux-headers-$version-generic linux-image-$version-generic"
+done
+
+apt-get -y remove $cmd
