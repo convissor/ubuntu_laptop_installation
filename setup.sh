@@ -492,12 +492,12 @@ echo ""
 echo -n "Okay? [Y|n]: "
 read -e
 if [[ -z "$REPLY" || "$REPLY" == y || "$REPLY" == Y ]] ; then
-	step="set repository back to ubuntu's"
-	step_header "$step"
-	file=/etc/apt/sources.list
-	sed "s/mirror\.pnl\.gov/us.archive.ubuntu.com/g" -i "$file"
-	cd /etc && git add --all && commit_if_needed "$step"
-	ask_to_proceed "$step"
+    step="set repository back to ubuntu's"
+    step_header "$step"
+    file=/etc/apt/sources.list
+    sed "s/mirror\.pnl\.gov/us.archive.ubuntu.com/g" -i "$file"
+    cd /etc && git add --all && commit_if_needed "$step"
+    ask_to_proceed "$step"
 fi
 
 
