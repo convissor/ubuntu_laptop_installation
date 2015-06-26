@@ -484,6 +484,26 @@ cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
 
+# CHANGE REPOSITORY BACK ================================
+
+echo "Ubuntu's software package servers have slow connections."
+echo "To speed up the installation process, this script used faster servers."
+echo "But to avoid you having problems in the future if the faster server"
+echo "goes away, this next step will undo that change so your computer will"
+echo "use Ubuntu's default server."
+echo ""
+echo -n "Okay? [Y|n]: "
+read -e
+if [[ -z "$REPLY" || "$REPLY" == y || "$REPLY" == Y ]] ; then
+	step="set repository back to ubuntu's"
+	step_header "$step"
+	file=/etc/apt/sources.list
+	sed "s/mirror\.pnl\.gov/us.archive.ubuntu.com/g" -i "$file"
+	cd /etc && git add --all && commit_if_needed "$step"
+	ask_to_proceed "$step"
+fi
+
+
 # KERNEL UPGRADE ========================================
 
 step="kernel upgrade"
