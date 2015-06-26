@@ -252,6 +252,14 @@ else
     echo 'APT::Periodic::AutocleanInterval "1"' >> "$file"
 fi
 
+# Alas, autoclean doesn't happen on it's own for some reason.
+# Make a job that does the cleanup 10 minutes after the computer starts.
+file=.uli_crontab
+echo "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" > $file
+echo "@reboot sleep 600 && apt-get -qq autoremove" >> $file
+crontab $file
+rm $file
+
 # Uncomment all origins so all upgrades get installed automatically.
 file=/etc/apt/apt.conf.d/50unattended-upgrades
 sed -r 's@^/*(\s*"\$\{distro_id\}.*")@\1@g' -i "$file"
