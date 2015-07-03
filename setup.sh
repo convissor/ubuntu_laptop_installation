@@ -481,9 +481,11 @@ echo -n "Should we give each user Dan's vim settings? [Y|n]: "
 read -e
 if [[ -z "$REPLY" || "$REPLY" == y || "$REPLY" == Y ]] ; then
     cd
-    git clone git://github.com/convissor/vim-settings.git
-    cd vim-settings
-    ./setup.sh
+    if [[ ! -d vim-settings ]] ; then
+        git clone git://github.com/convissor/vim-settings.git
+        cd vim-settings
+        ./setup.sh
+    fi
 
     dirs=`ls /home`
 
@@ -497,11 +499,13 @@ if [[ -z "$REPLY" || "$REPLY" == y || "$REPLY" == Y ]] ; then
         fi
 
         cd "/home/$dir"
-        cp -R /root/vim-settings .
-        cd vim-settings
-        ./setup.sh
-        cd ..
-        chown -R "$dir":"$dir" .vim .vimrc vim-settings
+        if [[ ! -d vim-settings ]] ; then
+            cp -R /root/vim-settings .
+            cd vim-settings
+            ./setup.sh
+            cd ..
+            chown -R "$dir":"$dir" .vim .vimrc vim-settings
+        fi
     done
 fi
 
