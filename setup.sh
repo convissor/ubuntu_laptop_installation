@@ -80,22 +80,29 @@ ask_to_proceed "$step"
 
 # TRACK ALL CONFIGURATION CHANGES =========================
 
-step="git"
+step="put /etc under git control, install vim"
 step_header "$step"
 
-cd /etc
-git init
-chmod 770 .git
+if [[ -z $(which git) ]] ; then
+    apt-get -qq update
+    apt-get -qq install git vim
+fi
 
-git config --global user.name root
-git config --global user.email root@localhost
+if [[ ! -d /etc/.git ]] ; then
+    cd /etc
+    git init
+    chmod 770 .git
 
-echo "mtab" >> .gitignore
-echo "cups/subscriptions*" >> .gitignore
-git add --all
-commit_if_needed "$step"
+    git config --global user.name root
+    git config --global user.email root@localhost
 
-ask_to_proceed "$step"
+    echo "mtab" >> .gitignore
+    echo "cups/subscriptions*" >> .gitignore
+    git add --all
+    commit_if_needed "$step"
+
+    ask_to_proceed "$step"
+fi
 
 
 # CHANGE REPOSITORY =======================================
@@ -104,9 +111,18 @@ ask_to_proceed "$step"
 step="use pnl.gov repository instead of ubuntu's"
 step_header "$step"
 file=/etc/apt/sources.list
-sed "s/us\.archive\.ubuntu\.com/mirror.pnl.gov/g" -i "$file"
-cd /etc && git add --all && commit_if_needed "$step"
-ask_to_proceed "$step"
+
+set +e
+grep -q "mirror.pnl.gov" "$file"
+if [ $? -ne 0 ] ; then
+    set -e
+    sed "s/us\.archive\.ubuntu\.com/mirror.pnl.gov/g" -i "$file"
+    cd /etc && git add --all && commit_if_needed "$step"
+    apt-get -qq update
+    ask_to_proceed "$step"
+else
+    set -e
+fi
 
 
 # SOFTWARE UPGRADE ========================================
