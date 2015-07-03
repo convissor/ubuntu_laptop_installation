@@ -125,12 +125,21 @@ else
 fi
 
 
-# SOFTWARE UPGRADE ========================================
+# KERNEL UPGRADE ========================================
+# Do now; 15.05 has bug regarding password for swap drive encryption.
 
-step="upgrade"
+step="kernel upgrade"
 step_header "$step"
-apt-get -qq update && apt-get -qq -y upgrade
+apt-get -qq dist-upgrade
 cd /etc && git add --all && commit_if_needed "$step mods"
+if [ -a /var/run/reboot-required ] ; then
+    echo "REBOOT IS REQURED"
+    echo "Once rebooted, re-run this startup.sh script to complete the process."
+    echo -n "Press ENTER to continue..."
+    read -e
+    shutdown -r now
+    exit
+fi
 ask_to_proceed "$step"
 
 
@@ -524,20 +533,5 @@ if [[ -z "$REPLY" || "$REPLY" == y || "$REPLY" == Y ]] ; then
     ask_to_proceed "$step"
 fi
 
-
-# KERNEL UPGRADE ========================================
-
-step="kernel upgrade"
-step_header "$step"
-apt-get -qq -y dist-upgrade
-cd /etc && git add --all && commit_if_needed "$step mods"
-if [ -a /var/run/reboot-required ] ; then
-    echo "REBOOT IS REQURED"
-    echo -n "Press ENTER to continue..."
-    read -e
-    shutdown -r now
-    exit
-fi
-ask_to_proceed "$step"
 
 echo "That's all, folks!  Enjoy your new Ubuntu installation."
