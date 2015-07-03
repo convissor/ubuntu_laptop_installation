@@ -186,7 +186,7 @@ echo "Say NO both times to the pop up asking to save the IP tables data."
 echo -n "Press ENTER to continue..."
 read -e
 
-apt-get -qq -y install iptables-persistent
+apt-get -qq install iptables-persistent netfilter-persistent
 cd /etc && git add --all && commit_if_needed "$step"
 
 dir=`dirname "$iptables_file"`
@@ -221,7 +221,7 @@ EOIPT
 # -------------------------------------
 
 cp "$iptables_file" "$ip6tables_file"
-/etc/init.d/iptables-persistent restart
+systemctl restart netfilter-persistent
 cd /etc && git add --all && commit_if_needed "$step mods"
 ask_to_proceed "$step"
 
