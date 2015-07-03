@@ -1,10 +1,13 @@
 Ubuntu (Laptop) Installation
 ============================
 
-Instructions and bash scripts for installing and configuring Ubuntu 14.04
-(Trusty Tahr) or 13.10 (Saucy Salamander) on a PC.
+Instructions and bash scripts for installing and configuring Ubuntu 15.04
+(Vivid Vervit) on a PC.
 The initial intention was using this on laptops.  In reality, it works great for
 desktops too.
+
+See this repository's "14.04" branch for setting up Trusty Tahr or
+Saucy Salamander.
 
 See this repository's "12.04" branch for setting up Precise Pangolin.
 

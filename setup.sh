@@ -3,7 +3,7 @@
 if [[ $1 == "-h" || $1 == "--help" || $1 == "help" ]] ; then
     echo "Usage: setup.sh"
     echo ""
-    echo "Configures a new Ubuntu 14.04 (or 13.10) machine."
+    echo "Configures a new Ubuntu 15.04 machine."
     echo ""
     echo "Author: Daniel Convissor <danielc@analysisandsolutions.com>"
     echo "https://github.com/convissor/ubuntu_laptop_installation"
