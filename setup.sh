@@ -341,13 +341,11 @@ apt-get -qq -y install \
     antiword tofrodos ack-grep gawk \
     sqlite3 sqlite3-doc \
     ntp traceroute gparted lm-sensors htop screen \
-    gnome-session-fallback gnome-panel gnome-tweak-tool \
+    unity-tweak-tool gnome-panel gnome-tweak-tool \
     gimp gimp-help-en
 
-# Packages not available in trusty (as of yet):
-# epdfview pdfedit myunity
-
-ln -s /usr/bin/ack-grep /usr/bin/ack
+# Packages not available in vivid (as of yet):
+# epdfview pdfedit myunity gnome-session-fallback
 
 # Multimedia codecs and DVD playback.
 apt-get -qq -y install ubuntu-restricted-extras
