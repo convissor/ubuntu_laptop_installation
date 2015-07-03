@@ -105,6 +105,16 @@ if [[ ! -d /etc/.git ]] ; then
 fi
 
 
+# VIM SETTINGS FOR ROOT ===============================
+
+cd
+if [[ ! -d vim-settings ]] ; then
+	git clone git://github.com/convissor/vim-settings.git
+	cd vim-settings
+	./setup.sh
+fi
+
+
 # CHANGE REPOSITORY =======================================
 # The default us. repositories are VERRRRRRRRRY slow (eg 150 KB/s)
 
@@ -475,18 +485,11 @@ cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
 
-# VIM SETTINGS ========================================
+# VIM SETTINGS FOR OTHERS =============================
 
 echo -n "Should we give each user Dan's vim settings? [Y|n]: "
 read -e
 if [[ -z "$REPLY" || "$REPLY" == y || "$REPLY" == Y ]] ; then
-    cd
-    if [[ ! -d vim-settings ]] ; then
-        git clone git://github.com/convissor/vim-settings.git
-        cd vim-settings
-        ./setup.sh
-    fi
-
     dirs=`ls /home`
 
     for dir in $dirs ; do
