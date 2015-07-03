@@ -337,7 +337,6 @@ apt-get -qq -y install \
     autoconf autoconf-doc \
     konversation skype mutt links lynx google-chrome-stable curl \
     gnome-mplayer flashplugin-installer qt4-qtconfig \
-    vim \
     epdfview pdfedit okular okular-extra-backends poppler-utils \
     antiword tofrodos ack-grep gawk \
     sqlite3 sqlite3-doc \
