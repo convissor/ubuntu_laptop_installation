@@ -6,6 +6,8 @@ Instructions and bash scripts for installing and configuring Ubuntu 14.04
 The initial intention was using this on laptops.  In reality, it works great for
 desktops too.
 
+See this repository's "15.04" branch for setting up Vivid Vervit.
+
 See this repository's "12.04" branch for setting up Precise Pangolin.
 
 Notable features:
