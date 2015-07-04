@@ -109,9 +109,9 @@ fi
 
 cd
 if [[ ! -d vim-settings ]] ; then
-	git clone git://github.com/convissor/vim-settings.git
-	cd vim-settings
-	./setup.sh
+    git clone git://github.com/convissor/vim-settings.git
+    cd vim-settings
+    ./setup.sh
 fi
 
 
