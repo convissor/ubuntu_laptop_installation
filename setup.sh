@@ -251,7 +251,7 @@ file=/etc/ssh/sshd_config
 sed -r "s/^PermitRootLogin\s+(.*)/PermitRootLogin without-password/g" -i "$file"
 commit_if_needed "$step mods"
 
-service ssh reload
+systemctl reload ssh
 ask_to_proceed "$step"
 
 
