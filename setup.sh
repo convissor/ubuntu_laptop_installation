@@ -105,35 +105,6 @@ if [[ ! -d /etc/.git ]] ; then
 fi
 
 
-# VIM SETTINGS FOR ROOT ===============================
-
-cd
-if [[ ! -d vim-settings ]] ; then
-    git clone git://github.com/convissor/vim-settings.git
-    cd vim-settings
-    ./setup.sh
-fi
-
-
-# CHANGE REPOSITORY =======================================
-# The default us. repositories are VERRRRRRRRRY slow (eg 150 KB/s)
-
-step="use pnl.gov repository instead of ubuntu's"
-step_header "$step"
-file=/etc/apt/sources.list
-
-set +e
-grep -q "mirror.pnl.gov" "$file"
-if [ $? -ne 0 ] ; then
-    set -e
-    sed "s/us\.archive\.ubuntu\.com/mirror.pnl.gov/g" -i "$file"
-    cd /etc && git add --all && commit_if_needed "$step"
-    apt-get -qq update
-    ask_to_proceed "$step"
-else
-    set -e
-fi
-
 # FIX FSTAB TO GET ENCRYPTED SWAP WORKING ===============
 # https://bugs.launchpad.net/ubuntu/+source/ecryptfs-utils/+bug/1453738
 
@@ -177,6 +148,36 @@ if [[ $do_swap -eq 1 ]] ; then
 fi
 
 ask_to_proceed "$step"
+
+
+# VIM SETTINGS FOR ROOT ===============================
+
+cd
+if [[ ! -d vim-settings ]] ; then
+    git clone git://github.com/convissor/vim-settings.git
+    cd vim-settings
+    ./setup.sh
+fi
+
+
+# CHANGE REPOSITORY =======================================
+# The default us. repositories are VERRRRRRRRRY slow (eg 150 KB/s)
+
+step="use pnl.gov repository instead of ubuntu's"
+step_header "$step"
+file=/etc/apt/sources.list
+
+set +e
+grep -q "mirror.pnl.gov" "$file"
+if [ $? -ne 0 ] ; then
+    set -e
+    sed "s/us\.archive\.ubuntu\.com/mirror.pnl.gov/g" -i "$file"
+    cd /etc && git add --all && commit_if_needed "$step"
+    apt-get -qq update
+    ask_to_proceed "$step"
+else
+    set -e
+fi
 
 
 # KERNEL UPGRADE ========================================
