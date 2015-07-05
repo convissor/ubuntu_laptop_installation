@@ -134,9 +134,53 @@ else
     set -e
 fi
 
+# FIX FSTAB TO GET ENCRYPTED SWAP WORKING ===============
+# https://bugs.launchpad.net/ubuntu/+source/ecryptfs-utils/+bug/1453738
+
+step="disable regular swap so encrypted swap works"
+step_header "$step"
+
+do_swap=0
+file=/etc/fstab
+
+set +e
+grep -q "^/dev/mapper/cryptswap1" "$file"
+if [ $? -eq 0 ] ; then
+    # Encrypted swap is listed, make sure regular swap is commented out.
+
+    grep -q "^/dev/mapper/ubuntu--vg-swap_1" "$file"
+    if [ $? -eq 0 ] ; then
+        # Regular swap isn't commented out.  Do so now.
+        set -e
+        sed -r "s@^(/dev/mapper/ubuntu--vg-swap_1)@#\1@" -i "$file"
+        do_swap=1
+    fi
+
+    set -e
+    sed -r "s@^(/dev/mapper/ubuntu--vg-swap_1)@#\1@" -i "$file"
+else
+    # No encrypted swap, move along.
+    set -e
+fi
+
+cd /etc && git add --all && commit_if_needed "$step"
+
+if [[ $do_swap -eq 1 ]] ; then
+    # Need to do this before updating kernel to prevent being asked for
+    # the swap drive password over and over.
+    echo "REBOOT IS REQURED"
+    echo "Once rebooted, re-run this startup.sh script to complete the process."
+    echo -n "Press ENTER to continue..."
+    read -e
+    shutdown -r now
+    exit
+fi
+
+ask_to_proceed "$step"
+
 
 # KERNEL UPGRADE ========================================
-# Do now; 15.05 has bug regarding password for swap drive encryption.
+# Do now; 15.05 kernel has bugs.
 
 step="kernel upgrade"
 step_header "$step"
