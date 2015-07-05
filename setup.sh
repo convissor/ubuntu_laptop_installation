@@ -83,9 +83,9 @@ ask_to_proceed "$step"
 step="put /etc under git control, install vim"
 step_header "$step"
 
-if [[ -z $(which git) ]] ; then
+if [[ -z $(which git) || -z $(which vim) ]] ; then
     apt-get -qq update
-    apt-get -qq install git vim
+    apt-get -qq install git-core vim
 fi
 
 if [[ ! -d /etc/.git ]] ; then
