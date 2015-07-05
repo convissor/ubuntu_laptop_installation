@@ -140,8 +140,10 @@ fi
 
 step="kernel upgrade"
 step_header "$step"
+
 apt-get -qq dist-upgrade
-cd /etc && git add --all && commit_if_needed "$step mods"
+cd /etc && git add --all && commit_if_needed "$step"
+
 if [ -a /var/run/reboot-required ] ; then
     echo "REBOOT IS REQURED"
     echo "Once rebooted, re-run this startup.sh script to complete the process."
@@ -150,6 +152,7 @@ if [ -a /var/run/reboot-required ] ; then
     shutdown -r now
     exit
 fi
+
 ask_to_proceed "$step"
 
 
