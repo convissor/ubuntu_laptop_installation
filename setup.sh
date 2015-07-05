@@ -100,9 +100,9 @@ if [[ ! -d /etc/.git ]] ; then
     echo "cups/subscriptions*" >> .gitignore
     git add --all
     commit_if_needed "$step"
-
-    ask_to_proceed "$step"
 fi
+
+ask_to_proceed "$step"
 
 
 # VIM SETTINGS FOR ROOT ===============================
