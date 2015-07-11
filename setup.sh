@@ -334,7 +334,7 @@ sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
 cd /etc && git add --all && commit_if_needed "Add Google Chrome repository."
 
 file=/etc/apt/sources.list.d/virtualbox.list
-echo "deb http://download.virtualbox.org/virtualbox/debian vivid non-free" > "$file"
+echo "deb http://download.virtualbox.org/virtualbox/debian precise non-free" > "$file"
 wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc \
     | apt-key add -
 cd /etc && git add --all && commit_if_needed "Add Virtualbox repository."
