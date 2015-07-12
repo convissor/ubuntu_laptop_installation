@@ -391,7 +391,7 @@ apt-get -qq -y install \
     autoconf autoconf-doc autoconf2.13 automake1.4 bison build-essential kcachegrind \
     konversation liferea skype mutt mb2md maildir-utils \
     links lynx google-chrome-stable curl icedtea-plugin w3m \
-    mencoder mplayer mplayer-doc flashplugin-installer qt4-qtconfig \
+    mplayer flashplugin-installer qt4-qtconfig \
     okular okular-extra-backends pdfposter pdftk poppler-utils \
     antiword tofrodos ack-grep gawk html2text uni2ascii tidy xz-utils \
     dictd dict-gcide dict-moby-thesaurus \
@@ -404,7 +404,7 @@ apt-get -qq -y install \
     gimp gimp-help-en imagemagick
 
 # Packages not available in vivid (as of yet):
-# myunity gnome-session-fallback
+# mencoder mplayer-doc myunity gnome-session-fallback
 
 # Multimedia codecs and DVD playback.
 apt-get -qq -y install ubuntu-restricted-extras
