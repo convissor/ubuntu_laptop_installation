@@ -393,7 +393,7 @@ apt-get -qq -y install \
     links lynx google-chrome-stable curl icedtea-plugin w3m \
     mencoder mplayer mplayer-doc flashplugin-installer qt4-qtconfig \
     okular okular-extra-backends pdfposter pdftk poppler-utils \
-    antiword tofrodos ack-grep gawk html2text uni2ascii tidy xz-lzma \
+    antiword tofrodos ack-grep gawk html2text uni2ascii tidy xz-utils \
     dictd dict-gcide dict-moby-thesaurus \
     apache2-doc apache2-mpm-prefork apache2-prefork-dev lighttpd memcached \
     mysql-client mysql-server sqlite sqlite-doc sqlite3 sqlite3-doc \
