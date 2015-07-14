@@ -355,7 +355,7 @@ apt-get -qq -y install \
     virtualbox \
     ntp openvpn traceroute wireshark \
     gparted lm-sensors htop screen mcrypt \
-    gnome-session-fallback gnome-panel gnome-tweak-tool \
+    gnome-session-fallback gnome-panel gnome-themes-extras gnome-tweak-tool \
     gimp gimp-help-en imagemagick
 
 # Packages not available in vivid (as of yet):
