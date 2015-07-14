@@ -156,8 +156,15 @@ cd
 if [[ ! -d vim-settings ]] ; then
     git clone git://github.com/convissor/vim-settings.git
     cd vim-settings
-    ./setup.sh
+else
+    cd vim-settings
+    # Ensure files have right permissions in case copied via thumb drive.
+    git reset --hard HEAD
 fi
+./setup.sh
+
+cd
+cp -R vim-settings /etc/skel
 
 
 # CHANGE REPOSITORY =======================================
@@ -538,36 +545,6 @@ echo "$admin_user: $user" >> "$file"
 newaliases
 
 cd /etc && git add --all && commit_if_needed "$step"
-ask_to_proceed "$step"
-
-
-# VIM SETTINGS FOR OTHERS =============================
-
-echo -n "Should we give each user Dan's vim settings? [Y|n]: "
-read -e
-if [[ -z "$REPLY" || "$REPLY" == y || "$REPLY" == Y ]] ; then
-    dirs=`ls /home`
-
-    for dir in $dirs ; do
-        if [ "$dir" == "lost+found" ] ; then
-            continue
-        fi
-        if [ -f "/home/$dir/Access-Your-Private-Data.desktop" ] ; then
-            # Encrypted home directory.
-            continue
-        fi
-
-        cd "/home/$dir"
-        if [[ ! -d vim-settings ]] ; then
-            cp -R /root/vim-settings .
-            cd vim-settings
-            ./setup.sh
-            cd ..
-            chown -R "$dir":"$dir" .vim .vimrc vim-settings
-        fi
-    done
-fi
-
 ask_to_proceed "$step"
 
 
