@@ -400,7 +400,7 @@ apt-get -qq -y install \
     virtualbox \
     ntp openvpn traceroute wireshark \
     gparted lm-sensors htop screen mcrypt \
-    unity-tweak-tool gnome-panel gnome-tweak-tool \
+    unity-tweak-tool gnome-panel gnome-themes-extras gnome-tweak-tool \
     gimp gimp-help-en imagemagick
 
 # Packages not available in vivid (as of yet):
