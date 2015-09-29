@@ -83,8 +83,9 @@ ask_to_proceed "$step"
 step="put /etc under git control, install vim"
 step_header "$step"
 
+apt-get -qq update
+
 if [[ -z $(which git) || -z $(which vim) ]] ; then
-    apt-get -qq update
     apt-get -qq install git-core vim
 fi
 
@@ -102,6 +103,89 @@ if [[ ! -d /etc/.git ]] ; then
     commit_if_needed "$step"
 fi
 
+ask_to_proceed "$step"
+
+
+# GET SWAP WORKING AND/OR ENCRYPTED ===================
+# https://bugs.launchpad.net/ubuntu/+source/ecryptfs-utils/+bug/953875
+# https://bugs.launchpad.net/ubuntu/+source/ecryptfs-utils/+bug/1453738
+
+step="get swap working and/or encrypted"
+step_header "$step"
+
+set +e
+swapon_crypt_count=$(swapon -s | grep -c cryptswap)
+set -e
+
+if [ $swapon_crypt_count -eq 0 ] ; then
+    # No encrypted swaps exist.
+
+    set +e
+    swapon_list=$(swapon -s | grep ^/)
+    set -e
+
+    if [ -z "$swapon_list" ] ; then
+        # In fact, no swaps exist.
+
+        # awk match() needs gawk.
+        apt-get -qq install gawk
+
+        uuid=$(mkswap /dev/ubuntu-vg/swap_1 | gawk 'match($0, /UUID=([^[:space:]]+)/, m) {print m[1]}')
+        if [ -z "$uuid" ] ; then
+            echo "ERROR: mkswap didn't produce a UUID."
+            exit 2
+        fi
+    else
+        # Regular swap exists.  Convert it to encrypted.
+
+        # Determine swap device UUID.
+        swap=(${swapon_list[@]})
+        uuid=$(blkid -o value -s UUID $swap)
+        if [ -z "$uuid" ] ; then
+            echo "ERROR: couldn't get UUID from swapon_list."
+            exit 3
+        fi
+    fi
+
+    set +e
+    fstab_regular_count=$(grep -c ^/dev/mapper/ubuntu--vg-swap_1 /etc/fstab)
+    set -e
+    if [ $fstab_regular_count -ne 0 ] ; then
+        # Comment out the unencrypted entry in fstab.
+        sed -r "s@^(/dev/mapper/ubuntu--vg-swap_1)@#\1@" -i /etc/fstab
+    fi
+
+    set +e
+    fstab_crypt_count=$(grep -c ^/dev/mapper/cryptswap1 /etc/fstab)
+    set -e
+    if [ $fstab_crypt_count -eq 0 ] ; then
+        # Need cryptswap entry in fstab.
+        echo "/dev/mapper/cryptswap1 none swap sw 0 0" >> /etc/fstab
+    fi
+
+    set +e
+    crypttab_crypt_count=$(grep -c cryptswap1 /etc/crypttab)
+    set -e
+    if [ $crypttab_crypt_count -eq 0 ] ; then
+        # Crypttab doesn't have a swap entry, add one.
+        echo "cryptswap1 UUID=$uuid /dev/urandom swap,offset=1024,cipher=aes-cbc-essiv:sha256" >> /etc/crypttab
+    else
+        # Crypttab has swap entry, but need to fix the UUID and offset.
+        sed -r "s/^cryptswap1 UUID=[^[:space:]]+/cryptswap1 UUID=$uuid/" -i /etc/crypttab
+        sed -r "s/swap,cipher/swap,offset=1024,cipher/" -i /etc/crypttab
+    fi
+
+    # Turn swap off.
+    swapoff -a
+
+    # Restart cryptdisks.
+    /etc/init.d/cryptdisks restart
+
+    # Turn swap back on.
+    swapon -a
+fi
+
+cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
 
