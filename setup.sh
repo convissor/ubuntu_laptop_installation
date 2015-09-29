@@ -81,13 +81,10 @@ IdentityFile ~/.ssh/id_rsa-root
 EOSSH
 
 else
-    if [ ! -d "$dir" ] ; then
-        echo "~/.ssh found.  Skipping SSH key generation."
-    fi
     chmod 700 /root/.ssh
 fi
 
-chmod 600 /root/.ssh/*
+chmod --quiet 600 /root/.ssh/*
 
 ask_to_proceed "$step"
 
