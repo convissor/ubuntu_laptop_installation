@@ -14,6 +14,7 @@ See this repository's "12.04" branch for setting up Precise Pangolin.
 Notable features:
 
 * Encrypts entire hard drive
+* Ensures swap space is working and encrypted
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
 * Sets up administrative access via `ssh root@localhost`
 * Installs common utilities
