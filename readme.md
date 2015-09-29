@@ -86,17 +86,22 @@ hit Enter
 
 Now you're in Ubuntu's installer.
 
-When asked for a user name, DO __NOT__ use your company assigned user name.
-A regular, company provided user name account will be created later.
+On the "Installation type" screen, ensure the "Erase disk and install
+Ubuntu" radio button is selected.  Then put checks in the
+"Encrypt the new Ubuntu installation for security" and
+"Use LVM with the new Ubuntu installation" boxes.
+
+When you are asked to "Pick a username" on the "Who are you?" screen,
+DO __NOT__ use your company assigned user name.
+A regular user name account will be created later.
 This first account is an admin user with sudo privileges; it should be a
 separate account from the one you use on a day-to-day basis for regular work.
 This prevents destructive commands from being inadvertently executed.
 
-When asked whether to encrypt the home directory, say no.  It's unnecessary
-because the whole drive will be encrypted.
-
-Once the "Partition disks" screen comes up, pick the option for encrypting
-the whole drive.
+Also on that screen, pick the "Require my password to log in" radio button.
+While picking "Encrypt my home folder" isn't essential because the whole
+drive is encrypted, picking it is another safety measure in the event other
+users are given accounts on the machine.
 
 
 Configuration
