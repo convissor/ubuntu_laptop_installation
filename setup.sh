@@ -84,7 +84,9 @@ else
     chmod 700 /root/.ssh
 fi
 
+set +e
 chmod --quiet 600 /root/.ssh/*
+set -e
 
 ask_to_proceed "$step"
 
