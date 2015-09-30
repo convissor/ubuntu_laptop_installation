@@ -174,7 +174,7 @@ if [ $swapon_crypt_count -eq 0 ] ; then
     swapoff -a
 
     # Restart cryptdisks.
-    systemctl restart cryptsetup.target
+    systemctl restart systemd-cryptsetup@cryptswap1.service
 
     if [ -n "$swapon_list" ] ; then
         echo "Making swap on /dev/mapper/cryptswap1"
