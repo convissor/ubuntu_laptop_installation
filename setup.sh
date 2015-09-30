@@ -185,10 +185,10 @@ if [ $swapon_crypt_count -eq 0 ] ; then
         fi
     fi
 
-    # Turn swap off.
+    echo "Turn swaps off."
     swapoff -a
 
-    # Restart cryptdisks.
+    echo "Restart cryptswap1."
     systemctl restart systemd-cryptsetup@cryptswap1.service
 
     if [ -n "$swapon_list" ] ; then
@@ -196,7 +196,7 @@ if [ $swapon_crypt_count -eq 0 ] ; then
         mkswap /dev/mapper/cryptswap1
     fi
 
-    # Turn swap back on.
+    echo "Turn swaps back on."
     swapon -a
 
     echo "Result of swap reworking:"
