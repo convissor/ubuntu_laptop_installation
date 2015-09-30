@@ -112,32 +112,37 @@ step="get swap working and/or encrypted"
 step_header "$step"
 
 set +e
-swapon_crypt_count=$(swapon -s | grep -c cryptswap)
+swapon_list=$(swapon -s | grep ^/)
 set -e
 
-if [ $swapon_crypt_count -eq 0 ] ; then
-    echo "No encrypted swaps exist. Let's fix that."
+if [ -z "$swapon_list" ] ; then
+    echo "No swaps exist.  Let's fix that."
+    swap=/dev/ubuntu-vg/swap_1
+    swapon_crypt_count=0
+else
+    swap=(${swapon_list[@]})
 
     set +e
-    swapon_list=$(swapon -s | grep ^/)
+    swapon_crypt_count=$(/sbin/dmsetup table $swap | grep -c " crypt ")
     set -e
 
-    uuid=""
-    if [ -z "$swapon_list" ] ; then
-        echo "In fact, no swaps exist."
-        swap=/dev/ubuntu-vg/swap_1
-    else
+    if [ $swapon_crypt_count -eq 0 ] ; then
         echo "Regular swap exists.  Convert it to encrypted."
-        swap=(${swapon_list[@]})
+    else
+        echo "Encrypted swap exists.  Move along."
     fi
+fi
+
+if [ $swapon_crypt_count -eq 0 ] ; then
+    uuid=""
 
     uuid=$(blkid -o value -s UUID $swap)
     if [ -z "$uuid" ] ; then
         echo "Couldn't determine UUID for $swap.  Using path instead."
-        part_id=$swap
+        source_device=$swap
     else
         echo "$swap = $uuid"
-        part_id="UUID=$uuid"
+        source_device="UUID=$uuid"
     fi
 
     set +e
@@ -157,17 +162,27 @@ if [ $swapon_crypt_count -eq 0 ] ; then
     fi
 
     set +e
-    crypttab_crypt_count=$(grep -c cryptswap1 /etc/crypttab)
+    crypttab_crypt_count=$(grep -c ^cryptswap1 /etc/crypttab)
     set -e
     if [ $crypttab_crypt_count -eq 0 ] ; then
         echo "Add cryptswap1 entry to crypttab."
-        echo "cryptswap1 $part_id /dev/urandom swap,offset=1024,cipher=aes-cbc-essiv:sha256" >> /etc/crypttab
+        echo "cryptswap1 $source_device /dev/urandom swap,offset=1024,cipher=aes-cbc-essiv:sha256" >> /etc/crypttab
     else
-        echo "Fix cryptswap1 UUID or path in crypttab."
-        sed -r "s/^cryptswap1 [^[:space:]]+/cryptswap1 $part_id/" -i /etc/crypttab
+        set +e
+        source_count=$(grep -c "^cryptswap1 $source_device" /etc/crypttab)
+        set -e
+        if [ $source_count -eq 0 ] ; then
+            echo "Set cryptswap1 source device to $source_device in crypttab."
+            sed -r "s/^cryptswap1 [^[:space:]]+/cryptswap1 $source_device/" -i /etc/crypttab
+        fi
 
-        echo "Add offset to cryptswap1 entry in crypttab, if needed."
-        sed -r "s/swap,cipher/swap,offset=1024,cipher/" -i /etc/crypttab
+        set +e
+        offset_count=$(grep -c "^cryptswap1.*offset=" /etc/crypttab)
+        set -e
+        if [ $offset_count -eq 0 ] ; then
+            echo "Add offset to cryptswap1 entry in crypttab."
+            sed -r "s/swap,cipher/swap,offset=1024,cipher/" -i /etc/crypttab
+        fi
     fi
 
     # Turn swap off.
