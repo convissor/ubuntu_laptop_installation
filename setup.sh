@@ -84,7 +84,7 @@ step_header "$step"
 
 if [[ -z $(which git) || -z $(which vim) ]] ; then
     apt-get -qq update
-    apt-get -qq install git-core vim
+    apt-get -qq -y install git-core vim
 fi
 
 if [[ ! -d /etc/.git ]] ; then
@@ -363,7 +363,7 @@ ask_to_proceed "$step"
 
 step="sshd"
 step_header "$step"
-apt-get install -qq -y openssh-server openssh-blacklist openssh-blacklist-extra
+apt-get -qq -y install openssh-server openssh-blacklist openssh-blacklist-extra
 cd /etc && git add --all && commit_if_needed "$step"
 
 file=/etc/ssh/sshd_config
