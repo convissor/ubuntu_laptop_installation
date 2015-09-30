@@ -126,7 +126,7 @@ Then issue the following commands:
 
     sudo -i
 
-    apt-get install git-core git-doc
+    apt-get update && apt-get install git-core git-doc
     git clone git://github.com/convissor/ubuntu_laptop_installation.git
     cd ubuntu_laptop_installation
     git checkout 15.04
