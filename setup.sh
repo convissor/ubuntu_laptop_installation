@@ -188,6 +188,15 @@ if [ $swapon_crypt_count -eq 0 ] ; then
     echo "Turn swaps off."
     swapoff -a
 
+    set +e
+    systemctl_count=$(systemctl list-units | grep -c cryptswap1)
+    set -e
+    if [ $systemctl_count -eq 0 ] ; then
+        echo "Run systemd cryptsetup generator"
+        /lib/systemd/system-generators/systemd-cryptsetup-generator
+        cp /tmp/systemd-cryptsetup@cryptswap1.service /etc/systemd/system
+    fi
+
     echo "Restart cryptswap1."
     systemctl restart systemd-cryptsetup@cryptswap1.service
 
