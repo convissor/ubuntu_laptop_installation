@@ -200,11 +200,6 @@ if [ $swapon_crypt_count -eq 0 ] ; then
     echo "Restart cryptswap1."
     systemctl restart systemd-cryptsetup@cryptswap1.service
 
-    if [ -n "$swapon_list" ] ; then
-        echo "Making swap on /dev/mapper/cryptswap1"
-        mkswap /dev/mapper/cryptswap1
-    fi
-
     echo "Turn swaps back on."
     swapon -a
 
