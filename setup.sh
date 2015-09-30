@@ -37,20 +37,6 @@ repo_dir="$(cd "$(dirname "$0")" && pwd)"
 admin_user=$(grep 1000 /etc/passwd | awk -F ':' '{print $1}')
 
 
-if [[ -f /var/lib/apt/periodic/update-success-stamp ]] ; then
-    now=$(date +%s)
-    update_time=$(stat -c %Y /var/lib/apt/periodic/update-success-stamp)
-    secs_ago=$(expr $now - $update_time)
-    if [[ $secs_ago -gt 600 ]] ; then
-        echo "Updating apt package list again"
-        apt-get -qq update
-    fi
-else
-    echo "Updating apt package list"
-    apt-get -qq update
-fi
-
-
 # SETUP ROOT SSH KEYS =====================================
 
 step="root ssh keys"
@@ -97,6 +83,7 @@ step="put /etc under git control, install vim"
 step_header "$step"
 
 if [[ -z $(which git) || -z $(which vim) ]] ; then
+    apt-get -qq update
     apt-get -qq install git-core vim
 fi
 
