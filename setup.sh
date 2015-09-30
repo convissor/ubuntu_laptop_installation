@@ -305,7 +305,7 @@ echo "Say NO both times to the pop up asking to save the IP tables data."
 echo -n "Press ENTER to continue..."
 read -e
 
-apt-get -qq install iptables-persistent netfilter-persistent
+apt-get -qq -y install iptables-persistent netfilter-persistent
 cd /etc && git add --all && commit_if_needed "$step"
 
 dir=`dirname "$iptables_file"`
