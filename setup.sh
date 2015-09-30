@@ -135,30 +135,22 @@ if [ $swapon_crypt_count -eq 0 ] ; then
     swapon_list=$(swapon -s | grep ^/)
     set -e
 
+    uuid=""
     if [ -z "$swapon_list" ] ; then
         echo "In fact, no swaps exist."
-
-        if [[ -z $(which gawk) ]] ; then
-            # awk match() needs gawk.
-            apt-get -qq install gawk
-        fi
-
-        echo "Making swap on /dev/ubuntu-vg/swap_1"
-        uuid=$(mkswap /dev/ubuntu-vg/swap_1 | gawk 'match($0, /UUID=([^[:space:]]+)/, m) {print m[1]}')
-        if [ -z "$uuid" ] ; then
-            echo "ERROR: mkswap didn't produce a UUID."
-            exit 2
-        fi
+        swap=/dev/ubuntu-vg/swap_1
     else
-        # Regular swap exists.  Convert it to encrypted.
-
-        # Determine swap device UUID.
+        echo "Regular swap exists.  Convert it to encrypted."
         swap=(${swapon_list[@]})
-        uuid=$(blkid -o value -s UUID $swap)
-        if [ -z "$uuid" ] ; then
-            echo "ERROR: couldn't get UUID from swapon_list."
-            exit 3
-        fi
+    fi
+
+    uuid=$(blkid -o value -s UUID $swap)
+    if [ -z "$uuid" ] ; then
+        echo "Couldn't determine UUID for $swap.  Using path instead."
+        part_id=$swap
+    else
+        echo "$swap = $uuid"
+        part_id="UUID=$uuid"
     fi
 
     set +e
@@ -182,13 +174,12 @@ if [ $swapon_crypt_count -eq 0 ] ; then
     set -e
     if [ $crypttab_crypt_count -eq 0 ] ; then
         echo "Add cryptswap1 entry to crypttab."
-        echo "cryptswap1 UUID=$uuid /dev/urandom swap,offset=1024,cipher=aes-cbc-essiv:sha256" >> /etc/crypttab
+        echo "cryptswap1 $part_id /dev/urandom swap,offset=1024,cipher=aes-cbc-essiv:sha256" >> /etc/crypttab
     else
-        # Crypttab has swap entry, but need to fix the UUID and offset.
-        echo "Fix cryptswap1 UUID in crypttab."
-        sed -r "s/^cryptswap1 UUID=[^[:space:]]+/cryptswap1 UUID=$uuid/" -i /etc/crypttab
+        echo "Fix cryptswap1 UUID or path in crypttab."
+        sed -r "s/^cryptswap1 [^[:space:]]+/cryptswap1 $part_id/" -i /etc/crypttab
 
-        echo "Add cryptswap1 offset in crypttab."
+        echo "Add offset to cryptswap1 entry in crypttab, if needed."
         sed -r "s/swap,cipher/swap,offset=1024,cipher/" -i /etc/crypttab
     fi
 
@@ -197,6 +188,11 @@ if [ $swapon_crypt_count -eq 0 ] ; then
 
     # Restart cryptdisks.
     /etc/init.d/cryptdisks restart
+
+    if [ -n "$swapon_list" ] ; then
+        echo "Making swap on /dev/mapper/cryptswap1"
+        mkswap /dev/mapper/cryptswap1
+    fi
 
     # Turn swap back on.
     swapon -a
