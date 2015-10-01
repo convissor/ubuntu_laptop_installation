@@ -89,7 +89,7 @@ hit Enter
 Now you're in Ubuntu's installer.
 
 The "Preparing to install Ubuntu" page has the
-"Download updates while installing" checkbox, but DONT'T check it.
+"Download updates while installing" checkbox, but DON'T check it.
 Save yourself the agony.  Ubuntu's default repository is horribly slow.  My
 setup script changes it to a faster repository and then updates everything.
 Do check the "Install this third-party software" box to make life simpler.
