@@ -86,6 +86,12 @@ hit Enter
 
 Now you're in Ubuntu's installer.
 
+The "Preparing to install Ubuntu" page has the
+"Download updates while installing" checkbox, but DONT'T check it.
+Save yourself the agony.  Ubuntu's default repository is horribly slow.  My
+setup script changes it to a faster repository and then updates everything.
+Do check the "Install this third-party software" box to make life simpler.
+
 On the "Installation type" screen, ensure the "Erase disk and install
 Ubuntu" radio button is selected.  Then put checks in the
 "Encrypt the new Ubuntu installation for security" and
