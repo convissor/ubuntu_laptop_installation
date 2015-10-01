@@ -134,9 +134,9 @@ else
 fi
 
 if [ $swapon_crypt_count -eq 0 ] ; then
-    uuid=""
-
+    set +e
     uuid=$(blkid -o value -s UUID $swap)
+    set -e
     if [ -z "$uuid" ] ; then
         echo "Couldn't determine UUID for $swap.  Using path instead."
         source_device=$swap
@@ -173,7 +173,7 @@ if [ $swapon_crypt_count -eq 0 ] ; then
         set -e
         if [ $source_count -eq 0 ] ; then
             echo "Set cryptswap1 source device to $source_device in crypttab."
-            sed -r "s/^cryptswap1 [^[:space:]]+/cryptswap1 $source_device/" -i /etc/crypttab
+            sed -r "s@^cryptswap1 [^[:space:]]+@cryptswap1 $source_device@" -i /etc/crypttab
         fi
 
         set +e
@@ -205,9 +205,6 @@ if [ $swapon_crypt_count -eq 0 ] ; then
 
     echo "Result of swap reworking:"
     swapon -s
-
-    echo -n "Hit CTRL-C to stop or ENTER to continue... "
-    read -e
 fi
 
 cd /etc && git add --all && commit_if_needed "$step"
