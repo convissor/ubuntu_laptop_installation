@@ -82,7 +82,8 @@ needed.
 
 * When the BIOS splash screen appears, hit Enter, F12, select "USB HDD",
 hit Enter
-* When the small bar (USB logo?) appears, hit Enter
+* If you get a message saying "gfxboot.c32: not a COM32R image", type "live" and hit Enter.
+* If the small bar (USB logo?) appears, hit Enter
 * If things do not progress, hit Enter again
 
 Now you're in Ubuntu's installer.
