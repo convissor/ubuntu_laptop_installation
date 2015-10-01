@@ -222,10 +222,15 @@ else
     # Ensure files have right permissions in case copied via thumb drive.
     git reset --hard HEAD
 fi
-./setup.sh
+
+if [[ ! -e ~/.vimrc ]] ; then
+    ./setup.sh
+fi
 
 cd
-cp -R vim-settings /etc/skel
+if [[ ! -e /etc/skel/vim-settings ]] ; then
+    cp -R vim-settings /etc/skel
+fi
 
 
 # CHANGE REPOSITORY =======================================
