@@ -194,4 +194,4 @@ is being decrypted (eg: `sda5_crypt`).  If the drive is something other than
 
 Apparently, one can back up the drive encryption headers this way:
 
-    luksHeaderBackup /dev/sda5 --header-backup-file <file>
+    cryptsetup luksHeaderBackup /dev/sda5 --header-backup-file <file>
