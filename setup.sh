@@ -452,7 +452,8 @@ apt-get -qq update
 
 apt-get -qq -y install \
     git-svn git-cvs gitk subversion subversion-tools cvs mercurial bzr \
-    autoconf autoconf-doc autoconf2.13 automake1.4 build-essential kcachegrind \
+    autoconf autoconf-doc autoconf2.13 automake1.4 re2c build-essential kcachegrind \
+    libxml2-dev libbz2-dev libcurl4-openssl-dev libjpeg-dev libpng12-dev libmcrypt-dev unixodbc-dev libtidy-dev libxslt1-dev \
     konversation liferea skype mutt mb2md maildir-utils \
     links lynx google-chrome-stable curl icedtea-plugin w3m \
     mencoder mplayer mplayer-doc flashplugin-installer qt4-qtconfig \
