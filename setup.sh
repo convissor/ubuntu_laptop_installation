@@ -461,7 +461,7 @@ apt-get -qq update
 
 apt-get -qq -y install \
     git-svn git-cvs gitk subversion subversion-tools cvs mercurial bzr \
-    autoconf autoconf-doc autoconf2.13 automake1.4 bison build-essential kcachegrind \
+    autoconf autoconf-doc autoconf2.13 automake1.4 build-essential kcachegrind \
     konversation liferea skype mutt mb2md maildir-utils \
     links lynx google-chrome-stable curl icedtea-plugin w3m \
     mplayer flashplugin-installer qt4-qtconfig \
