@@ -522,6 +522,19 @@ cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
 
+# BISON ===================================================
+# PHP doesn't support compiling with Bison 3x,
+# but Ubuntu 14.04+ ships with that.  Build bison from source.
+
+cd "$source_dir"
+wget https://ftp.gnu.org/gnu/bison/bison-2.7.tar.xz
+tar xvJf bison-2.7.tar.xz
+cd bison-2.7
+./configure
+make
+make install
+
+
 # USER INTERFACE TWEAKS ===================================
 
 step="user interface tweaks"
