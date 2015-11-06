@@ -460,7 +460,7 @@ apt-get -qq -y install \
     okular okular-extra-backends pdfposter pdftk poppler-utils \
     antiword tofrodos ack-grep gawk html2text uni2ascii tidy xz-utils \
     dictd dict-gcide dict-moby-thesaurus \
-    apache2-doc apache2-mpm-prefork apache2-prefork-dev lighttpd memcached \
+    apache2-doc apache2-mpm-prefork apache2-prefork-dev apache2-utils lighttpd memcached \
     mysql-client mysql-server sqlite sqlite-doc sqlite3 sqlite3-doc \
     virtualbox \
     ntp openvpn traceroute wireshark \
