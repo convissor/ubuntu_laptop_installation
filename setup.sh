@@ -453,7 +453,7 @@ apt-get -qq update
 apt-get -qq -y install \
     git-svn git-cvs gitk subversion subversion-tools cvs mercurial bzr \
     autoconf autoconf-doc autoconf2.13 automake1.4 re2c build-essential kcachegrind \
-    libxml2-dev libbz2-dev libcurl4-openssl-dev libjpeg-dev libpng12-dev libmcrypt-dev unixodbc-dev libtidy-dev libxslt1-dev \
+    libxml2-dev libbz2-dev libcurl4-openssl-dev libjpeg-dev libpng12-dev libmcrypt-dev unixodbc-dev libtidy-dev libxslt1-dev libsasl2-dev \
     konversation liferea skype mutt mb2md maildir-utils \
     links lynx google-chrome-stable curl icedtea-plugin w3m \
     mencoder mplayer mplayer-doc flashplugin-installer qt4-qtconfig \
@@ -466,7 +466,7 @@ apt-get -qq -y install \
     ntp openvpn traceroute wireshark \
     gparted lm-sensors htop screen mcrypt \
     gnome-session-fallback gnome-panel gnome-themes-extras gnome-tweak-tool \
-    gimp gimp-help-en imagemagick
+    gimp gimp-help-en imagemagick libmagickwand-dev
 
 # Packages not available in vivid (as of yet):
 # myunity gnome-session-fallback
