@@ -459,6 +459,7 @@ apt-get -qq -y install \
     cvs \
     mercurial \
     bzr \
+    ppa-purge \
     \
     autoconf \
     autoconf-doc \
