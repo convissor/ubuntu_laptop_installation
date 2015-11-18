@@ -349,21 +349,97 @@ cd /etc && git add --all && commit_if_needed "Add Virtualbox repository."
 apt-get -qq update
 
 apt-get -qq -y install \
-    git-svn git-cvs gitk subversion subversion-tools cvs mercurial bzr \
-    autoconf autoconf-doc autoconf2.13 automake1.4 bison build-essential kcachegrind \
-    konversation liferea skype mutt mb2md maildir-utils \
-    links lynx google-chrome-stable curl icedtea-plugin w3m \
-    mencoder mplayer mplayer-doc flashplugin-installer qt4-qtconfig \
-    okular okular-extra-backends pdfposter pdftk poppler-utils \
-    antiword tofrodos ack-grep gawk html2text uni2ascii tidy xz-utils \
-    dictd dict-gcide dict-moby-thesaurus \
-    apache2-doc apache2-mpm-prefork apache2-prefork-dev apache2-utils lighttpd memcached \
-    mysql-client mysql-server sqlite sqlite-doc sqlite3 sqlite3-doc \
+    git-svn \
+    git-cvs \
+    gitk \
+    subversion \
+    subversion-tools \
+    cvs \
+    mercurial \
+    bzr \
+    \
+    autoconf \
+    autoconf-doc \
+    autoconf2.13 \
+    automake1.4 \
+    bison \
+    build-essential \
+    kcachegrind \
+    \
+    konversation \
+    liferea \
+    skype \
+    mutt \
+    mb2md \
+    maildir-utils \
+    \
+    links \
+    lynx \
+    google-chrome-stable \
+    curl \
+    icedtea-plugin \
+    w3m \
+    \
+    mencoder \
+    mplayer \
+    mplayer-doc \
+    flashplugin-installer \
+    qt4-qtconfig \
+    \
+    okular \
+    okular-extra-backends \
+    pdfposter \
+    pdftk \
+    poppler-utils \
+    \
+    antiword \
+    tofrodos \
+    ack-grep \
+    gawk \
+    html2text \
+    uni2ascii \
+    tidy \
+    xz-utils \
+    \
+    dictd \
+    dict-gcide \
+    dict-moby-thesaurus \
+    \
+    apache2-doc \
+    apache2-mpm-prefork \
+    apache2-prefork-dev \
+    apache2-utils \
+    lighttpd \
+    memcached \
+    \
+    mysql-client \
+    mysql-server \
+    sqlite \
+    sqlite-doc \
+    sqlite3 \
+    sqlite3-doc \
+    \
     virtualbox \
-    ntp openvpn traceroute wireshark \
-    gparted lm-sensors htop screen mcrypt \
-    myunity gnome-session-fallback gnome-panel gnome-tweak-tool \
-    gimp gimp-help-en imagemagick
+    \
+    ntp \
+    openvpn \
+    traceroute \
+    wireshark \
+    \
+    gparted \
+    lm-sensors \
+    htop \
+    screen \
+    mcrypt \
+    \
+    myunity \
+    gnome-session-fallback \
+    gnome-panel \
+    gnome-tweak-tool \
+    \
+    gimp \
+    gimp-help-en \
+    imagemagick
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
 
