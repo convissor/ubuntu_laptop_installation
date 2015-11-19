@@ -412,6 +412,7 @@ apt-get -qq -y install \
     apache2-utils \
     lighttpd \
     memcached \
+    npm \
     \
     mysql-client \
     mysql-server \
