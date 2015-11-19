@@ -567,6 +567,8 @@ apt-get -qq -y install \
 # Packages not available in vivid (as of yet):
 # mencoder mplayer-doc myunity gnome-session-fallback
 
+ln -s /usr/bin/nodejs /usr/bin/node
+
 # Multimedia codecs and DVD playback.
 apt-get -qq -y install ubuntu-restricted-extras
 /usr/share/doc/libdvdread4/install-css.sh
