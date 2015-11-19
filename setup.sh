@@ -67,13 +67,12 @@ IdentityFile ~/.ssh/id_rsa-root
 EOSSH
 
 else
-    if [ ! -d "$dir" ] ; then
-        echo "~/.ssh found.  Skipping SSH key generation."
-    fi
     chmod 700 /root/.ssh
 fi
 
-chmod 600 /root/.ssh/*
+set +e
+chmod --quiet 600 /root/.ssh/*
+set -e
 
 ask_to_proceed "$step"
 
@@ -85,7 +84,7 @@ step_header "$step"
 
 if [[ -z $(which git) || -z $(which vim) ]] ; then
     apt-get -qq update
-    apt-get -qq install git-core vim
+    apt-get -qq -y install git-core vim
 fi
 
 if [[ ! -d /etc/.git ]] ; then
@@ -116,10 +115,15 @@ else
     # Ensure files have right permissions in case copied via thumb drive.
     git reset --hard HEAD
 fi
-./setup.sh
+
+if [[ ! -e ~/.vimrc ]] ; then
+    ./setup.sh
+fi
 
 cd
-cp -R vim-settings /etc/skel
+if [[ ! -e /etc/skel/vim-settings ]] ; then
+    cp -R vim-settings /etc/skel
+fi
 
 
 # CHANGE REPOSITORY =======================================
@@ -254,7 +258,7 @@ ask_to_proceed "$step"
 
 step="sshd"
 step_header "$step"
-apt-get install -qq -y openssh-server openssh-blacklist openssh-blacklist-extra
+apt-get -qq -y install openssh-server openssh-blacklist openssh-blacklist-extra
 cd /etc && git add --all && commit_if_needed "$step"
 
 file=/etc/ssh/sshd_config
@@ -366,6 +370,17 @@ apt-get -qq -y install \
     bison \
     build-essential \
     kcachegrind \
+    \
+    libxml2-dev \
+    libbz2-dev \
+    libcurl4-openssl-dev \
+    libjpeg-dev \
+    libpng12-dev \
+    libmcrypt-dev \
+    unixodbc-dev \
+    libtidy-dev \
+    libxslt1-dev \
+    libsasl2-dev \
     \
     konversation \
     liferea \
