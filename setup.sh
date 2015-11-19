@@ -562,6 +562,7 @@ apt-get -qq -y install \
 # myunity gnome-session-fallback
 
 ln -s /usr/bin/ack-grep /usr/bin/ack
+ln -s /usr/bin/nodejs /usr/bin/node
 
 # Multimedia codecs and DVD playback.
 apt-get -qq -y install ubuntu-restricted-extras
