@@ -647,7 +647,7 @@ echo "greeter-hide-users=true" >> "$file"
 echo "allow-guest=false" >> "$file"
 
 # Ditch the annoying new scroll bar format.
-echo "export LIBOVERLAY_SCROLLBAR=0" >> /etc/X11/Xsession.d/80overlayscrollbars
+apt-get -qq -y purge overlay-scrollbar
 
 # Kill the "ready sound"
 cd /usr/share/glib-2.0/schemas
