@@ -599,6 +599,7 @@ mkdir -p /usr/share/git-core/templates/hooks
 # Then, whenever git init or clone are called, these files get copied into the new
 # repository's hooks directory.
 cp "$repo_dir/git-hooks/"* /usr/share/git-core/templates/hooks
+chmod 755 /usr/share/git-core/templates/hooks/*
 
 # Make calling "git ctags" execute our ctags script.
 git config --system alias.ctags '!.git/hooks/ctags'
