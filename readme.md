@@ -20,7 +20,6 @@ Notable features:
 * Installs `ctags` from source (to obtain bug fixes for PHP parsing)
 * Installs scripts for running ctags on Git and Subversion repositories
 * Optionally installs my vim settings (part of which uses all the ctag magic, above)
-* Includes a shell script to install Netflix Desktop
 
 
 Prepare Installation Media
@@ -177,9 +176,6 @@ You can log in as root via `ssh root@localhost`
 To lock the screen, hit CTRL-ALT-L
 
 To check DNS settings, call `nm-tool`
-
-To install Netflix Desktop, run the `netflix-desktop.sh` script from this
-repository
 
 To change the password of the encrypted drive.  Watch bootup for which device
 is being decrypted (eg: `sda5_crypt`).  If the drive is something other than
