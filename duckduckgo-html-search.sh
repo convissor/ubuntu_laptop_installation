@@ -12,6 +12,6 @@ fi
 
 
 for search_file in $(find ~/.mozilla/firefox -name search.json) ; do
-    sed 's@https://duckduckgo.com/"@https://duckduckgo.com/html/"@' -i "$search_file"
+    sed 's@https://duckduckgo.com/@https://duckduckgo.com/html/@' -i "$search_file"
     echo "$search_file"
 done
