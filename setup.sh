@@ -573,6 +573,17 @@ ln -s /usr/bin/nodejs /usr/bin/node
 apt-get -qq -y install ubuntu-restricted-extras
 /usr/share/doc/libdvdread4/install-css.sh
 
+# Adjust MySQL settings.
+file=/etc/mysql/my.cnf
+
+replace="[client]\\ndefault-character-set = utf8"
+sed s/\\[client\\]/"$replace"/g -i "$file"
+
+replace="[mysqld]\\ncharacter-set-server = utf8\\ncollation-server = utf8_bin\\ndefault-storage-engine = InnoDB\\ninnodb_file_per_table = 1\\n"
+sed s/\\[mysqld\\]/"$replace"/g -i "$file"
+
+service mysql restart
+
 cd /etc && git add --all && commit_if_needed "$step"
 ask_to_proceed "$step"
 
