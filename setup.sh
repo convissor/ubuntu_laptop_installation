@@ -590,19 +590,18 @@ ask_to_proceed "$step"
 
 # CTAGS AND GIT HOOKS =====================================
 
-step="exuberant ctags and related git hooks"
+step="universal ctags and related git hooks"
 step_header "$step"
 
 source_dir=/usr/local/src
 bin_dir=/usr/local/bin
 
-# Install Exuberant Ctags from source.  5.8 has bugs.
 mkdir -p "$source_dir"
 
 cd "$source_dir"
-svn checkout svn://svn.code.sf.net/p/ctags/code/trunk/ ctags
-cd ctags
-autoreconf
+git clone https://github.com/universal-ctags/ctags.git universal-ctags
+cd universal-ctags
+./autogen.sh
 ./configure
 make
 make install

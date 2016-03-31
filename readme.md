@@ -18,7 +18,7 @@ Notable features:
 * Tracks all changes to `/etc` and `/usr/share/glib-2.0/schemas` via git
 * Sets up administrative access via `ssh root@localhost`
 * Installs common utilities
-* Installs `ctags` from source (to obtain bug fixes for PHP parsing)
+* Installs Universal `ctags` from source
 * Installs scripts for running ctags on Git and Subversion repositories
 * Optionally installs my vim settings (part of which uses all the ctag magic, above)
 
