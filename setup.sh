@@ -469,6 +469,7 @@ apt-get -qq -y install \
     automake1.4 \
     re2c \
     build-essential \
+    pkg-config \
     kcachegrind \
     \
     libxml2-dev \
