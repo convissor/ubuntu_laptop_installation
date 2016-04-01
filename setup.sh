@@ -371,6 +371,7 @@ apt-get -qq -y install \
     automake1.4 \
     bison \
     build-essential \
+    pkg-config \
     kcachegrind \
     \
     libxml2-dev \
