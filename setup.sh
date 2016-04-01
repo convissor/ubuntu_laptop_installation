@@ -85,6 +85,7 @@ step_header "$step"
 if [[ -z $(which git) || -z $(which vim) ]] ; then
     apt-get -qq update
     apt-get -qq -y install git-core vim
+    echo "EDITOR=/usr/bin/vim" >> /root/.profile
 fi
 
 if [[ ! -d /etc/.git ]] ; then
@@ -221,6 +222,7 @@ fi
 cd
 if [[ ! -e /etc/skel/vim-settings ]] ; then
     cp -R vim-settings /etc/skel
+    echo "EDITOR=/usr/bin/vim" >> /etc/skel/.profile
 fi
 
 
