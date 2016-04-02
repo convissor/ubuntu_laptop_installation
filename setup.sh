@@ -124,6 +124,9 @@ fi
 cd
 if [[ ! -e /etc/skel/vim-settings ]] ; then
     cp -R vim-settings /etc/skel
+    cd /etc/skel
+    ln -s vim-settings/.vim .vim
+    ln -s vim-settings/.vimrc .vimrc
     echo "EDITOR=/usr/bin/vim" >> /etc/skel/.profile
 fi
 
